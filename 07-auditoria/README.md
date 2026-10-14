@@ -13,5 +13,5 @@ Contenido migrado desde `motivarcare-audit/` el 14/10/2026. Quedaron afuera `doc
 | `contexto.md` | Contexto original del proyecto de auditoría (versión anterior; el contexto vigente está en la raíz del repositorio) |
 | `presentacion-auditoria-ux/` | Guion y recursos de la presentación de la auditoría |
 | `exploracion/` | Propuestas de estilo y mockups previos del informe |
-| `medios/` | Logos, referencias gráficas e imágenes generales |
-| `Claude outputs/` | Archivos sueltos generados durante sesiones anteriores (capturas, borradores de casos y un .zip de actualización del informe) |
+| `medios/` | Logos e imágenes generales (las referencias de estilo están en `exploracion/medios/`) |
+| `Claude outputs/` | Dos archivos sueltos de sesiones anteriores: una variante de botón para la tarjeta "Tu profesional" (caso 03) y un .zip con la actualización del informe del caso 02 |
