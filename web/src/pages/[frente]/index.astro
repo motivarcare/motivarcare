@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Estado from '../../components/Estado.astro';
+import PaginaDS from '../../components/ds/PaginaDS.astro';
 import { materiales, agrupar, tamano, fecha, urlDocumento, tituloDoc, humanizar, REPO_GITHUB, esDocumento } from '../../lib/portal';
 
 export async function getStaticPaths() {
@@ -17,6 +18,7 @@ const docs = (await getCollection('documentos', (d) => esDocumento(d) && d.id.st
 const gruposDocs = agrupar(docs, (x) => x.carpeta.split('/')[0] || '');
 const mats = materiales(frente.id);
 const gruposMat = agrupar(mats, (m) => m.carpeta || '');
+const esDS = frente.id === '04-design-system';
 const enRaiz = (k: string) => (k === '' ? 'En la carpeta principal' : humanizar(k));
 ---
 <Base titulo={frente.data.titulo} descripcion={frente.data.resumen} frenteActual={frente.id}>
@@ -36,8 +38,10 @@ const enRaiz = (k: string) => (k === '' ? 'En la carpeta principal' : humanizar(
       </div>
     </header>
 
-    <div class="cuerpo">
-      <article class="prosa"><Content /></article>
+    {esDS && <PaginaDS html={frente.rendered?.html ?? ''} />}
+
+    <div class={esDS ? 'cuerpo cuerpo--ds' : 'cuerpo'}>
+      {!esDS && <article class="prosa"><Content /></article>}
 
       <aside>
         <section class="panel">
@@ -104,6 +108,9 @@ const enRaiz = (k: string) => (k === '' ? 'En la carpeta principal' : humanizar(
   .cuerpo { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 48px; align-items: start; }
   /* El H1 del README repite el título de la cabecera */
   .cuerpo :global(.prosa > h1:first-child) { display: none; }
+  .cuerpo--ds { display: block; margin-top: 56px; padding-top: 40px; border-top: 1.5px dashed var(--neutro); }
+  .cuerpo--ds aside { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; align-items: start; }
+  .cuerpo--ds .panel + .panel { margin-top: 0; }
   .cuenta { font-family: var(--sans); font-size: 13px; font-weight: 700; color: var(--gris); margin-left: 6px; }
   details summary { cursor: pointer; font-size: 14px; font-weight: 700; color: var(--verde-medio); margin-bottom: 10px; }
   details[open] summary { margin-bottom: 14px; }

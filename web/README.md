@@ -31,6 +31,8 @@ Otros comandos:
 | Materiales de un frente | Todos los archivos que no son `.md` (pptx, docx, imágenes, html…), con enlace a GitHub |
 | Contexto (`/contexto/`) | `contexto.md` en la raíz |
 
+**Caso especial: Design system.** La página de `04-design-system` muestra el `README.md` de ese frente en forma visual. Cada sección `##` lleva una muestra, y las tablas de Color, Tipografía, Personas y sesiones, Formas y elevación y Movimiento se convierten en muestras (colores con su contraste, especímenes tipográficos, glifos, radios y animaciones). Si se edita una tabla, la muestra cambia. La lógica está en `src/lib/ds.ts` y `src/components/ds/`.
+
 ### Encabezado (frontmatter) de cada frente
 
 El `README.md` de cada frente empieza con este bloque. El portal lo usa para la tarjeta de la portada y la cabecera de la página:
