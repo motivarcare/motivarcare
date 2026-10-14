@@ -3,6 +3,8 @@ import { getCollection, render } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Estado from '../components/Estado.astro';
 import Constelacion from '../components/Constelacion.astro';
+import Portada from '../components/Portada.astro';
+import TituloOndulado from '../components/TituloOndulado.astro';
 import { ETIQUETA_ESTADO, materiales, fecha, esDocumento } from '../lib/portal';
 
 const [inicio] = await getCollection('resumen', (e) => e.id === 'index');
@@ -23,7 +25,7 @@ const conteo = Object.keys(ETIQUETA_ESTADO)
   <section class="hero contenedor">
     <div class="hero-texto">
       <p class="eyebrow">Portal interno{inicio.data.actualizado && ` · actualizado el ${fecha(inicio.data.actualizado)}`}</p>
-      <h1>{inicio.data.titulo}</h1>
+      <TituloOndulado texto={inicio.data.titulo} />
       <p class="bajada">{inicio.data.bajada}</p>
       <div class="resumen-estados">
         {conteo.map((c) => (
@@ -32,7 +34,7 @@ const conteo = Object.keys(ETIQUETA_ESTADO)
       </div>
     </div>
     <div class="hero-ilustracion">
-      <Constelacion frentes={frentes.map((f) => ({ id: f.id, ...f.data }))} />
+      <Portada />
     </div>
   </section>
 
@@ -68,6 +70,17 @@ const conteo = Object.keys(ETIQUETA_ESTADO)
       <a class="boton" href="/contexto/">Abrir el contexto</a>
     </aside>
   </section>
+
+  <section class="contenedor seccion mapa">
+    <div class="encabezado">
+      <p class="eyebrow">Mapa de frentes</p>
+      <h2>Dónde está puesto el trabajo</h2>
+      <p class="mapa-nota">Cada punto es un frente. Sólido: con trabajo en marcha. Punteado: todavía sin iniciar.</p>
+    </div>
+    <div class="mapa-ilustracion">
+      <Constelacion frentes={frentes.map((f) => ({ id: f.id, ...f.data }))} />
+    </div>
+  </section>
 </Base>
 
 <style>
@@ -79,12 +92,16 @@ const conteo = Object.keys(ETIQUETA_ESTADO)
     padding-top: 64px;
     padding-bottom: 24px;
   }
-  .hero h1 { font-size: clamp(40px, 5.4vw, 70px); margin: 18px 0 20px; }
+  .hero :global(h1) { font-size: clamp(40px, 5.4vw, 72px); line-height: 1.04; letter-spacing: -0.03em; font-weight: 460; margin: 18px 0 24px; }
   .bajada { font-size: 19px; color: var(--tinta-suave); max-width: 36ch; margin: 0 0 28px; }
   .resumen-estados { display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: 14px; color: var(--tinta-suave); }
   .resumen-estados span { display: inline-flex; align-items: center; gap: 8px; }
   .resumen-estados b { color: var(--bosque); }
-  .hero-ilustracion { max-width: 520px; justify-self: end; width: 100%; }
+  .hero-ilustracion { max-width: 600px; justify-self: end; width: 100%; }
+  .mapa { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 40px; align-items: center; }
+  .mapa h2 { font-size: 34px; margin-top: 10px; }
+  .mapa-nota { color: var(--tinta-suave); font-size: 15px; max-width: 34ch; margin: 14px 0 0; }
+  .mapa-ilustracion { max-width: 540px; width: 100%; justify-self: center; }
 
   .seccion { margin-top: 72px; }
   .encabezado h2 { font-size: 34px; margin-top: 10px; }
@@ -141,5 +158,6 @@ const conteo = Object.keys(ETIQUETA_ESTADO)
     .hero-ilustracion { justify-self: center; max-width: 440px; }
     .proyecto { grid-template-columns: 1fr; }
     .proyecto .panel { position: static; }
+    .mapa { grid-template-columns: 1fr; }
   }
 </style>

@@ -1,5 +1,5 @@
 ---
-titulo: El trabajo sobre MotivarCare, en un solo lugar
+titulo: El trabajo sobre MotivarCare, en un solo *lugar*
 bajada: Portal interno para seguir cada frente del proyecto. Acá están los materiales, los trabajos hechos y el estado de cada uno.
 actualizado: 2026-10-14
 ---

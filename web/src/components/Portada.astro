@@ -1,0 +1,69 @@
+---
+/* Ilustración de la portada del investor deck: videollamada (psicóloga + paciente)
+   sobre la forma de corazón del logo, con fotos intervenidas y barras de audio que "hablan".
+   Se dibuja sobre un lienzo de 640 × 680 que escala con el ancho disponible. */
+const icono = {
+  mic: '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>',
+  cam: '<rect x="3" y="6" width="13" height="12" rx="3"/><path d="M16 10l5-3v10l-5-3"/>',
+  chat: '<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-4.9A8 8 0 1 1 21 12z"/>',
+  fin: '<path d="M3 14.5c5-4.5 13-4.5 18 0l-2.2 2.4-3.3-1.6v-2.6c-2.3-.8-4.7-.8-7 0v2.6l-3.3 1.6z"/>',
+};
+const svg = (k: keyof typeof icono) =>
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${icono[k]}</svg>`;
+---
+<div class="portada" aria-hidden="true">
+  <div class="lienzo">
+    <svg class="mancha" viewBox="0 0 600 560"><path d="M300 140 C 250 70, 150 50, 95 105 C 30 170, 45 280, 130 360 L 236 452 C 246 461, 250 470, 250 482 L 250 530 C 250 547, 266 556, 281 547 L 340 508 C 430 452, 565 350, 562 212 C 560 120, 490 60, 410 70 C 362 76, 326 104, 300 140 Z" fill="#D6E7DC" /></svg>
+    <span class="punto p1"></span>
+    <span class="punto p2"></span>
+    <div class="ventana grande">
+      <img src="/img/portada-terapeuta.jpg" alt="" width="940" height="630" />
+      <span class="pastilla"><Fragment set:html={svg('mic')} /><span class="barras"><i></i><i></i><i></i><i></i><i></i></span></span>
+    </div>
+    <div class="ventana chica">
+      <img src="/img/portada-paciente.jpg" alt="" width="356" height="396" />
+      <span class="mute"><Fragment set:html={svg('mic')} /></span>
+    </div>
+    <div class="controles">
+      <span><Fragment set:html={svg('mic')} /></span>
+      <span><Fragment set:html={svg('cam')} /></span>
+      <span><Fragment set:html={svg('chat')} /></span>
+      <span class="fin"><Fragment set:html={svg('fin')} /></span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .portada { container-type: inline-size; width: 100%; }
+  /* 1 unidad = 1px del lienzo original de 640 px de ancho */
+  .lienzo { --u: calc(100cqw / 640); position: relative; width: 100%; aspect-ratio: 640 / 600; }
+  .lienzo > * { position: absolute; }
+  .mancha { left: calc(var(--u) * -10); top: calc(var(--u) * -40); width: calc(var(--u) * 660); height: calc(var(--u) * 616); transform: rotate(-6deg); animation: entrar 0.9s ease both; }
+  .punto { border-radius: 50%; background: var(--amarillo); }
+  .p1 { left: calc(var(--u) * 548); top: calc(var(--u) * 4); width: calc(var(--u) * 24); height: calc(var(--u) * 24); animation: entrar 0.6s ease 0.6s both; }
+  .p2 { left: calc(var(--u) * 588); top: calc(var(--u) * 44); width: calc(var(--u) * 11); height: calc(var(--u) * 11); opacity: 0.7; animation: entrar 0.6s ease 0.75s both; }
+  .ventana { border-radius: calc(var(--u) * 22); overflow: hidden; box-shadow: 0 30px 60px -28px rgba(20, 41, 31, 0.45); }
+  .ventana img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .grande { left: calc(var(--u) * 150); top: calc(var(--u) * 150); width: calc(var(--u) * 470); height: calc(var(--u) * 315); animation: subir 0.8s cubic-bezier(.2, .7, .2, 1) 0.2s both; }
+  .chica { left: calc(var(--u) * 130); top: calc(var(--u) * 345); width: calc(var(--u) * 190); height: calc(var(--u) * 210); border: calc(var(--u) * 6) solid var(--crema); border-radius: calc(var(--u) * 26); animation: subir 0.8s cubic-bezier(.2, .7, .2, 1) 0.45s both; }
+  .chica img { object-position: 50% 30%; }
+  .pastilla { position: absolute; left: calc(var(--u) * 16); top: calc(var(--u) * 16); display: inline-flex; align-items: center; gap: calc(var(--u) * 8); background: rgba(20, 41, 31, 0.55); backdrop-filter: blur(6px); color: #fff; border-radius: 99px; padding: calc(var(--u) * 8) calc(var(--u) * 12); }
+  .pastilla :global(svg) { width: calc(var(--u) * 15); height: calc(var(--u) * 15); }
+  .barras { display: inline-flex; gap: calc(var(--u) * 3); align-items: center; height: calc(var(--u) * 14); }
+  .barras i { width: calc(var(--u) * 3); border-radius: 2px; background: var(--amarillo); display: block; animation: hablar 1.6s ease-in-out infinite; }
+  .barras i:nth-child(1) { height: calc(var(--u) * 6); }
+  .barras i:nth-child(2) { height: calc(var(--u) * 12); animation-delay: 0.2s; }
+  .barras i:nth-child(3) { height: calc(var(--u) * 8); animation-delay: 0.4s; }
+  .barras i:nth-child(4) { height: calc(var(--u) * 14); animation-delay: 0.1s; }
+  .barras i:nth-child(5) { height: calc(var(--u) * 7); animation-delay: 0.3s; }
+  .mute { position: absolute; left: calc(var(--u) * 12); bottom: calc(var(--u) * 12); width: calc(var(--u) * 30); height: calc(var(--u) * 30); border-radius: 50%; background: var(--amarillo); color: var(--tinta); display: flex; align-items: center; justify-content: center; }
+  .mute :global(svg) { width: calc(var(--u) * 15); height: calc(var(--u) * 15); }
+  .controles { left: calc(var(--u) * 380); top: calc(var(--u) * 490); display: flex; gap: calc(var(--u) * 10); background: #fff; border-radius: 99px; padding: calc(var(--u) * 8); box-shadow: 0 18px 40px -20px rgba(20, 41, 31, 0.4); animation: subir 0.7s cubic-bezier(.2, .7, .2, 1) 0.7s both; }
+  .controles span { width: calc(var(--u) * 42); height: calc(var(--u) * 42); border-radius: 50%; background: var(--menta); color: var(--bosque); display: inline-flex; align-items: center; justify-content: center; }
+  .controles span.fin { background: var(--amarillo); color: var(--tinta); }
+  .controles :global(svg) { width: calc(var(--u) * 18); height: calc(var(--u) * 18); }
+
+  @keyframes hablar { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(0.55); } }
+  @keyframes entrar { from { opacity: 0; transform: scale(0.94) rotate(-6deg); } }
+  @keyframes subir { from { opacity: 0; transform: translateY(24px); } }
+</style>

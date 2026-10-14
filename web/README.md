@@ -52,11 +52,13 @@ proximos_pasos:
 
 ```yaml
 ---
-titulo: Título grande de la portada
+titulo: Título grande de la portada, con una *palabra* destacada
 bajada: Frase que va debajo del título.
 actualizado: 2026-10-14
 ---
 ```
+
+La palabra entre `*asteriscos*` del título lleva el subrayado amarillo ondulante del investor deck.
 
 ### Documentos
 
@@ -77,7 +79,8 @@ web/
 ├── src/content.config.ts   qué .md se leen y qué campos lleva cada uno
 ├── src/lib/portal.ts       utilidades: estados, URLs, listado de materiales
 ├── src/layouts/Base.astro  estructura común: barra superior y pie
-├── src/components/         marca, chip de estado, ilustración de la portada
+├── src/components/         logo, chip de estado, ilustración de la portada (la del investor deck), mapa de frentes
 ├── src/pages/              portada, página de frente, documento y contexto
-└── src/styles/global.css   estilos (paleta y tipografía del investor deck)
+├── src/styles/global.css   estilos (paleta y tipografía del investor deck)
+└── public/img/             fotos intervenidas de la portada del investor deck
 ```
