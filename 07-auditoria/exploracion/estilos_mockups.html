@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Explorador de Estilos — Auditoría UX MotivarCare</title>
+  <!-- Google Fonts para Serif y Sans de alta calidad editorial -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,600&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,400;1,700;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN para maquetación rápida y limpia -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            instrument: ['"Instrument Serif"', 'serif'],
+            newsreader: ['"Newsreader"', 'serif'],
+            playfair: ['"Playfair Display"', 'serif'],
+            cormorant: ['"Cormorant Garamond"', 'serif'],
+            mono: ['"Space Mono"', 'monospace'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            inter: ['"Inter"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Estilos personalizados para efectos de retícula y ficheros */
+    .blueprint-grid-light {
+      background-size: 28px 28px;
+      background-image: 
+        linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    }
+    .blueprint-grid-dark {
+      background-size: 28px 28px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+    .blueprint-grid-sage {
+      background-size: 28px 28px;
+      background-image: 
+        linear-gradient(to right, rgba(22, 41, 33, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(22, 41, 33, 0.05) 1px, transparent 1px);
+    }
+    .folder-tab {
+      clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+    }
+  </style>
+</head>
+<body class="bg-stone-950 text-stone-100 min-h-screen font-sans antialiased">
+
+  <!-- BARRA DE SELECCIÓN SUPERIOR DE MOCKUPS -->
+  <header class="sticky top-0 z-50 bg-stone-950/95 backdrop-blur border-b border-stone-800 px-4 md:px-8 py-3">
+    <div class="max-w-7xl mx-auto flex flex-col xl:flex-row items-center justify-between gap-3">
+      <div>
+        <div class="flex items-center gap-2.5">
+          <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          <h1 class="text-sm md:text-base font-semibold tracking-tight text-stone-200">MotivarCare UX Audit · Explorador de Estilos</h1>
+          <span class="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-stone-800 text-stone-300">9 Mockups</span>
+        </div>
+        <p class="text-xs text-stone-400 mt-0.5">Explora las 3 rondas evolutivas: Ronda 3 profundiza en la base Salvia con escala dramática y lectura 100% Serif</p>
+      </div>
+
+      <!-- Selector de Mockups (3 grupos) -->
+      <div class="flex flex-wrap items-center justify-center gap-1.5 p-1.5 bg-stone-900/95 rounded-xl border border-stone-800 text-xs">
+        
+        <!-- Ronda 3: Enfoque Salvia Evolucionado (DESTACADO) -->
+        <span class="text-[10px] font-mono text-emerald-400 uppercase px-1.5 font-bold">Ronda 3 (Salvia + Escala):</span>
+        <button onclick="switchMockup(7)" id="btn-mockup-7" class="px-2.5 py-1 rounded-lg font-bold transition-all bg-stone-100 text-stone-900 shadow-md ring-2 ring-white/40">
+          7. Terracota (Instrument)
+        </button>
+        <button onclick="switchMockup(8)" id="btn-mockup-8" class="px-2.5 py-1 rounded-lg font-medium transition-all text-blue-300 hover:text-blue-100 border border-blue-500/40">
+          8. Lapislázuli (Playfair)
+        </button>
+        <button onclick="switchMockup(9)" id="btn-mockup-9" class="px-2.5 py-1 rounded-lg font-medium transition-all text-amber-300 hover:text-amber-100 border border-amber-500/40">
+          9. Ámbar (Cormorant)
+        </button>
+
+        <span class="h-4 w-px bg-stone-700 mx-1 hidden lg:inline"></span>
+
+        <!-- Ronda 2: Derivados iniciales -->
+        <span class="text-[10px] font-mono text-stone-500 uppercase px-1 hidden md:inline">Ronda 2:</span>
+        <button onclick="switchMockup(4)" id="btn-mockup-4" class="px-2 py-1 rounded-md font-medium transition-all text-stone-400 hover:text-stone-200">
+          4. Dark
+        </button>
+        <button onclick="switchMockup(5)" id="btn-mockup-5" class="px-2 py-1 rounded-md font-medium transition-all text-stone-400 hover:text-stone-200">
+          5. Salvia V1
+        </button>
+        <button onclick="switchMockup(6)" id="btn-mockup-6" class="px-2 py-1 rounded-md font-medium transition-all text-stone-400 hover:text-stone-200">
+          6. Ledger
+        </button>
+
+        <span class="h-4 w-px bg-stone-700 mx-1 hidden xl:inline"></span>
+
+        <!-- Ronda 1: Referencias iniciales -->
+        <span class="text-[10px] font-mono text-stone-500 uppercase px-1 hidden xl:inline">Ronda 1:</span>
+        <button onclick="switchMockup(1)" id="btn-mockup-1" class="px-2 py-1 rounded-md font-medium transition-all text-stone-500 hover:text-stone-300">
+          1. Scale
+        </button>
+        <button onclick="switchMockup(2)" id="btn-mockup-2" class="px-2 py-1 rounded-md font-medium transition-all text-stone-500 hover:text-stone-300">
+          2. Garden
+        </button>
+        <button onclick="switchMockup(3)" id="btn-mockup-3" class="px-2 py-1 rounded-md font-medium transition-all text-stone-500 hover:text-stone-300">
+          3. Skøld
+        </button>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENEDOR PRINCIPAL DE MOCKUPS -->
+  <main class="max-w-7xl mx-auto p-4 md:p-8">
+
+    <!-- ============================================================================================== -->
+    <!-- MOCKUP 7 (RONDA 3): SALVIA & TERRACOTA ÓXIDO // ESCALA MONUMENTAL (INSTRUMENT SERIF + NEWSREADER) -->
+    <!-- ============================================================================================== -->
+    <div id="mockup-7" class="space-y-6">
+      <div class="bg-stone-900 border border-[#C2593F]/40 rounded-xl p-5 text-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div>
+          <span class="text-xs uppercase tracking-wider text-[#C2593F] font-mono font-bold">Concepto 7 · Ronda 3 (Evolución de Salvia)</span>
+          <h2 class="text-lg font-bold text-stone-100 font-sans mt-0.5">Salvia & Terracota Óxido (Escala Monumental en Instrument Serif)</h2>
+          <p class="text-xs text-stone-400 mt-1 max-w-2xl">
+            Tensión dramática máxima de escala: titular monumental en <strong>Instrument Serif</strong> (hasta 8xl) con curvas afiladas. Todos los textos de lectura y explicaciones son <strong>100% Serif en Newsreader</strong>. Las sans-serif se reservan exclusivamente para etiquetas marginales y metadatos en <strong>Plus Jakarta Sans</strong>. Acento en <strong>Terracota Óxido (#C2593F)</strong> sobre papel salvia sereno.
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-2 text-[11px] font-mono">
+          <span class="px-2.5 py-1 rounded bg-[#E8ECE6] text-[#14251D] font-sans font-bold">Base: #E8ECE6 (Salvia)</span>
+          <span class="px-2.5 py-1 rounded bg-[#C2593F] text-white font-bold">Acento: #C2593F (Terracota)</span>
+          <span class="px-2.5 py-1 rounded bg-stone-800 text-stone-300">Hero: Instrument Serif 8xl</span>
+          <span class="px-2.5 py-1 rounded bg-stone-800 text-stone-300">Lectura: Newsreader (Serif)</span>
+        </div>
+      </div>
+
+      <!-- Canvas simulado Mockup 7 -->
+      <div class="bg-[#E8ECE6] text-[#14251D] rounded-2xl border border-[#C5CEC2] shadow-2xl overflow-hidden blueprint-grid-sage p-6 md:p-14 relative">
+        <!-- Coordenadas técnicas -->
+        <div class="absolute top-6 left-6 text-[#7F9185] font-mono text-xs">+ MC.EXPEDIENTE.07</div>
+        <div class="absolute top-6 right-6 text-[#7F9185] font-mono text-xs">AUDITORÍA CLÍNICA DE CONVERSIÓN +</div>
+        <div class="absolute bottom-6 left-6 text-[#7F9185] font-mono text-xs">+ PROTOCOLO WCAG & TRUST</div>
+        <div class="absolute bottom-6 right-6 text-[#7F9185] font-mono text-xs">ESTADO: REVISIÓN EJECUTIVA +</div>
+
+        <!-- Barra superior tipo expediente con pestañas -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#BAC5B7] pb-6 mb-12">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 border border-[#14251D] bg-[#DFE5DC] text-[#14251D] flex items-center justify-center font-sans font-bold text-xs tracking-wider">
+              MC
+            </div>
+            <div>
+              <span class="font-instrument text-3xl tracking-wide font-normal block leading-none">MotivarCare</span>
+              <span class="text-[10px] font-sans uppercase tracking-widest text-[#596E61] font-semibold">Dossier Clínico de Experiencia · Septiembre 2026</span>
+            </div>
+          </div>
+
+          <!-- Pestañas anguladas -->
+          <nav class="flex items-center gap-1 font-sans text-xs font-semibold overflow-x-auto">
+            <a href="#" class="px-4 py-2 rounded-t-lg bg-[#14251D] text-[#E8ECE6]">01. Diagnóstico C-Level</a>
+            <a href="#" class="px-4 py-2 rounded-t-lg text-[#3C5245] hover:text-[#14251D]">02. Heurísticas Clínicas</a>
+            <a href="#" class="px-4 py-2 rounded-t-lg text-[#3C5245] hover:text-[#14251D]">03. Hallazgos (14)</a>
+            <a href="#" class="px-4 py-2 rounded-t-lg text-[#3C5245] hover:text-[#14251D]">04. Matriz ROI</a>
+          </nav>
+        </div>
+
+        <!-- Hero: Titular Monumental con contraste extremo -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start mb-16">
+          <div class="lg:col-span-8 space-y-6">
+            <!-- Chip Sans-serif para micro-etiqueta -->
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#8DA294] text-[10px] font-sans uppercase tracking-widest text-[#243B2E] font-bold bg-[#DCE4D9]">
+              <span class="w-2 h-2 rounded-full bg-[#C2593F]"></span>
+              Peritaje de Confianza en Salud Mental
+            </div>
+
+            <!-- Titular de escala masiva (Instrument Serif) -->
+            <h1 class="font-instrument text-5xl sm:text-7xl md:text-8xl lg:text-[5.5rem] leading-[0.88] text-[#112017] font-normal tracking-tight">
+              La fragilidad del 
+              <span class="italic text-[#C2593F] font-normal underline decoration-[#C2593F]/40 underline-offset-8">primer contacto</span>
+              en terapia virtual.
+            </h1>
+
+            <!-- Texto regular 100% Serif (Newsreader) -->
+            <div class="p-6 bg-[#DEE5DA]/80 border-l-4 border-[#C2593F] rounded-r-xl space-y-3 max-w-2xl shadow-sm">
+              <span class="font-sans text-[10px] uppercase tracking-widest text-[#C2593F] font-bold block">
+                Dictamen para la Junta Directiva
+              </span>
+              <p class="font-newsreader text-base sm:text-lg text-[#203328] leading-relaxed">
+                Cuando una persona con angustia emocional ingresa a <span class="font-semibold text-[#112017]">motivarcare.com</span>, no navega como quien compra un billete de avión: su atención es vulnerable y busca certidumbre inmediata. Hemos comprobado que la omisión de las acreditaciones profesionales en el primer pliegue y la falta de claridad en las tarifas generan una fricción silenciosa que frena hasta el <span class="bg-[#C2593F] text-white px-1.5 py-0.5 font-bold rounded">38.4%</span> de los inicios de consulta.
+              </p>
+            </div>
+          </div>
+
+          <!-- Columna Lateral: Tarjeta de Notas Marginales y Telemetría -->
+          <div class="lg:col-span-4 bg-[#DFE6DB] border border-[#BAC5B7] rounded-xl p-6 space-y-5 shadow-sm">
+            <div class="border-b border-[#BAC5B7] pb-3 flex items-center justify-between">
+              <div>
+                <span class="font-sans text-[10px] uppercase tracking-widest text-[#576B5F] font-bold block">Índice Global</span>
+                <span class="font-instrument text-4xl text-[#112017]">62<span class="text-base text-[#576B5F]">/100</span></span>
+              </div>
+              <span class="px-2.5 py-1 rounded bg-[#C2593F]/15 text-[#C2593F] font-sans text-[10px] uppercase tracking-wider font-bold border border-[#C2593F]/30">
+                Alerta Crítica
+              </span>
+            </div>
+
+            <!-- Notas de campo clínicas: Textos en Serif + Etiquetas en Sans -->
+            <div class="space-y-4">
+              <div class="p-3 bg-[#EAF0E7] rounded-lg border border-[#CAD4C6] space-y-1">
+                <span class="font-sans text-[9px] uppercase tracking-wider text-[#C2593F] font-bold">Nota Marginal #01</span>
+                <p class="font-newsreader text-xs text-[#2A3E32] leading-relaxed">
+                  "El paciente promedio abandona en 9 segundos si no detecta el número de colegiatura del terapeuta."
+                </p>
+              </div>
+
+              <div class="p-3 bg-[#EAF0E7] rounded-lg border border-[#CAD4C6] space-y-1">
+                <span class="font-sans text-[9px] uppercase tracking-wider text-[#355243] font-bold">Nota Marginal #02</span>
+                <p class="font-newsreader text-xs text-[#2A3E32] leading-relaxed">
+                  "El 70% de la fuga en checkout se debe a la falta de aclaración de zona horaria previa al pago."
+                </p>
+              </div>
+            </div>
+
+            <!-- Barra de salud técnica -->
+            <div class="pt-2 border-t border-[#BAC5B7] space-y-2">
+              <div class="flex justify-between font-sans text-[10px] uppercase font-bold text-[#455A4E]">
+                <span>Nivel de Fricción</span>
+                <span class="text-[#C2593F]">68% (Elevado)</span>
+              </div>
+              <div class="w-full bg-[#CBD5C8] h-2 rounded-full overflow-hidden">
+                <div class="bg-[#C2593F] h-full w-[68%]"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Muestra de Ficha de Hallazgo: Titular Serif, Cuerpo Serif, Etiquetas Sans -->
+        <div class="border-t border-[#BAC5B7] pt-8">
+          <div class="flex items-center justify-between mb-4">
+            <span class="font-sans text-[11px] uppercase tracking-widest text-[#52665A] font-bold">Evidencia Pericial #01 · Portada Principal</span>
+            <span class="px-2.5 py-0.5 rounded bg-[#C2593F] text-white font-sans text-[10px] uppercase tracking-widest font-bold">Severidad: Crítica</span>
+          </div>
+
+          <div class="bg-[#F0F4EE] border border-[#CBD5C7] rounded-xl p-6 md:p-8 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+            <div class="md:col-span-8 space-y-3">
+              <span class="font-sans text-[10px] uppercase tracking-widest text-[#C2593F] font-bold">Heurística: Reconocimiento antes que recuerdo & Confianza</span>
+              <h3 class="font-instrument text-3xl md:text-4xl text-[#112017] leading-tight font-normal">
+                Ausencia de sellos deontológicos y garantía explícita de secreto médico en el primer scroll
+              </h3>
+              <p class="font-newsreader text-sm md:text-base text-[#24392D] leading-relaxed">
+                La plataforma promete "terapia en línea sin esperas", pero omite el aval colegial y los protocolos de confidencialidad médica en el pliegue inicial. En telepsicología, la falta de acreditación explícita es percibida inconscientemente como un riesgo para la intimidad del paciente.
+              </p>
+              <div class="flex flex-wrap gap-4 pt-3 font-sans text-xs font-semibold text-[#4A6053]">
+                <span>Impacto en Conversión: <strong class="text-[#C2593F]">Muy Alto</strong></span>
+                <span>Esfuerzo de Implementación: <strong class="text-[#14251D]">Bajo (Quick Win)</strong></span>
+              </div>
+            </div>
+            <div class="md:col-span-4 bg-[#DCE4D9] border border-[#CAD4C6] rounded-xl p-6 text-center font-sans text-xs text-[#52675A] min-h-[160px] flex flex-col items-center justify-center">
+              <span class="text-2xl text-[#C2593F] mb-1">🔍</span>
+              <strong class="font-sans text-[11px] uppercase text-[#14251D]">Captura Anotada</strong>
+              <span class="font-newsreader italic text-xs text-[#576D60] mt-1">medios/ref_01_scale_studio.jpg</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- =================================================================================================== -->
+    <!-- MOCKUP 8 (RONDA 3): SALVIA & AZUL LAPISLÁZULI // ALTO CONTRASTE (PLAYFAIR BLACK + CORMORANT LECTURA) -->
+    <!-- =================================================================================================== -->
+    <div id="mockup-8" class="space-y-6 hidden">
+      <div class="bg-stone-900 border border-blue-500/40 rounded-xl p-5 text-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div>
+          <span class="text-xs uppercase tracking-wider text-blue-400 font-mono font-bold">Concepto 8 · Ronda 3 (Evolución de Salvia)</span>
+          <h2 class="text-lg font-bold text-stone-100 font-sans mt-0.5">Salvia & Azul Lapislázuli (Alto Impacto con Playfair Black 900)</h2>
+          <p class="text-xs text-stone-400 mt-1 max-w-2xl">
+            Titular rotundo y arquitectónico en <strong>Playfair Display Black (900)</strong>, contrastado con lectura regular clásica en <strong>Cormorant Garamond</strong>. Etiquetas de precisión en <strong>Inter</strong>. Acento en <strong>Azul Lapislázuli Profundo (#1E3A8A)</strong> que evoca la autoridad notarial y el peritaje oficial.
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-2 text-[11px] font-mono">
+          <span class="px-2.5 py-1 rounded bg-[#E8ECE6] text-[#14251D] font-sans font-bold">Base: #E8ECE6</span>
+          <span class="px-2.5 py-1 rounded bg-[#1E3A8A] text-white font-bold">Acento: #1E3A8A (Lapislázuli)</span>
+          <span class="px-2.5 py-1 rounded bg-stone-800 text-stone-300">Hero: Playfair 900</span>
+          <span class="px-2.5 py-1 rounded bg-stone-800 text-stone-300">Lectura: Cormorant Garamond</span>
+        </div>
+      </div>
+
+      <!-- Canvas simulado Mockup 8 -->
+      <div class="bg-[#E9EDE7] text-[#12221A] rounded-2xl border border-[#C5CEC2] shadow-2xl overflow-hidden blueprint-grid-sage p-6 md:p-14 relative">
+        <div class="absolute top-6 left-6 text-[#7F9185] font-mono text-xs">+ REGISTRO AUDITORÍA N° 2026-MC</div>
+        <div class="absolute top-6 right-6 text-[#7F9185] font-mono text-xs">CERTIFICACIÓN PERICIAL UX +</div>
+
+        <!-- Encabezado con sello notarial azul -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-2 border-[#12221A] pb-6 mb-12">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 border-2 border-[#1E3A8A] bg-white text-[#1E3A8A] flex items-center justify-center font-playfair font-black text-sm rounded shadow-sm">
+              UX
+            </div>
+            <div>
+              <span class="font-playfair text-2xl font-black tracking-tight block text-[#12221A]">MOTIVARCARE</span>
+              <span class="text-[10px] font-inter uppercase tracking-widest text-[#52675A] font-bold">Dictamen Estratégico de Usabilidad · 2026</span>
+            </div>
+          </div>
+
+          <!-- Sello oficial de tinta azul -->
+          <div class="border-2 border-[#1E3A8A] text-[#1E3A8A] px-4 py-1.5 rounded font-inter text-[11px] font-bold uppercase tracking-wider bg-white/70 shadow-sm flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-[#1E3A8A]"></span>
+            Peritaje Certificado · C-Level
+          </div>
+        </div>
+
+        <!-- Hero: Playfair Black 900 con escala dramática -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start mb-16">
+          <div class="lg:col-span-8 space-y-6">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-white/80 border border-[#BAC5B7] text-[10px] font-inter uppercase tracking-widest text-[#1E3A8A] font-bold">
+              ESTUDIO CUANTITATIVO DE CONVERSIÓN & RETENCIÓN
+            </div>
+
+            <h1 class="font-playfair text-4xl sm:text-6xl md:text-7xl font-black text-[#112017] leading-[0.94] tracking-tight">
+              Diseño de interfaces que 
+              <span class="text-[#1E3A8A] underline decoration-[#1E3A8A]/40 decoration-4 underline-offset-8">inspiran certidumbre</span> 
+              médica.
+            </h1>
+
+            <div class="p-6 bg-white/90 border border-[#CAD4C6] rounded-xl space-y-3 max-w-2xl shadow-sm">
+              <span class="font-inter text-[10px] uppercase tracking-widest text-[#1E3A8A] font-bold block">
+                Resumen Ejecutivo para Directores
+              </span>
+              <p class="font-cormorant text-lg sm:text-xl text-[#1E3326] leading-relaxed">
+                El paciente de telemedicina experimenta una fricción emocional previa a la transacción. Al evaluar <span class="font-bold text-[#112017]">motivarcare.com</span> bajo parámetros WCAG y heurísticas de confianza, se evidencia que clarificar las tarifas antes de la reserva y transparentar las credenciales clínicas reduce la tasa de rebote en un <span class="bg-[#1E3A8A] text-white px-2 py-0.5 rounded font-bold">42%</span>.
+              </p>
+            </div>
+          </div>
+
+          <!-- Panel de Control y Métricas de Negocio -->
+          <div class="lg:col-span-4 bg-white/80 border border-[#CBD5C8] rounded-xl p-6 space-y-5 shadow-sm">
+            <div class="border-b border-[#CBD5C8] pb-3">
+              <span class="font-inter text-[10px] uppercase tracking-widest text-[#5B6F62] font-bold block">Health Score General</span>
+              <span class="font-playfair text-3xl font-black text-[#112017]">62 <span class="text-sm font-normal text-[#5B6F62]">/ 100</span></span>
+            </div>
+
+            <!-- Métricas en Cormorant y etiquetas en Inter -->
+            <div class="space-y-4">
+              <div>
+                <div class="flex justify-between font-inter text-[10px] uppercase font-bold text-[#374C3F] mb-1">
+                  <span>Credibilidad Profesional</span>
+                  <span class="text-[#1E3A8A]">45% (Crítico)</span>
+                </div>
+                <div class="w-full bg-[#E0E6DE] h-2 rounded-full overflow-hidden">
+                  <div class="bg-[#1E3A8A] h-full w-[45%]"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between font-inter text-[10px] uppercase font-bold text-[#374C3F] mb-1">
+                  <span>Fluidez de Agendamiento</span>
+                  <span class="text-[#1E3A8A]">58% (Mayor)</span>
+                </div>
+                <div class="w-full bg-[#E0E6DE] h-2 rounded-full overflow-hidden">
+                  <div class="bg-[#1E3A8A] h-full w-[58%]"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-3 bg-[#EAF0E7] rounded border border-[#CBD5C7]">
+              <span class="font-inter text-[9px] uppercase tracking-wider text-[#1E3A8A] font-bold block">Conclusión</span>
+              <p class="font-cormorant text-sm text-[#1F3327] mt-1 leading-snug">
+                El 65% de las mejoras son Quick Wins de contenido y claridad visual sin reescritura de backend.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- =================================================================================================== -->
+    <!-- MOCKUP 9 (RONDA 3): SALVIA & ÁMBAR DORADO // ATMÓSFERA EDITORIAL (CORMORANT DISPLAY + NEWSREADER)  -->
+    <!-- =================================================================================================== -->
+    <div id="mockup-9" class="space-y-6 hidden">
+      <div class="bg-stone-900 border border-amber-500/40 rounded-xl p-5 text-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div>
+          <span class="text-xs uppercase tracking-wider text-amber-400 font-mono font-bold">Concepto 9 · Ronda 3 (Evolución de Salvia)</span>
+          <h2 class="text-lg font-bold text-stone-100 font-sans mt-0.5">Salvia & Ámbar Dorado (Elegancia Clásica en Cormorant Display)</h2>
+          <p class="text-xs text-stone-400 mt-1 max-w-2xl">
+            Proporciones renacentistas esbeltas con <strong>Cormorant Garamond Display</strong> a escala colosal (hasta 8xl), combinada con texto regular de lectura en <strong>Newsreader</strong> y anotaciones periciales en <strong>Space Mono</strong>. Acento en <strong>Ámbar Dorado / Ocre Solar (#D99B26)</strong> para un aire de tratado histórico restaurado.
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-2 text-[11px] font-mono">
+          <span class="px-2.5 py-1 rounded bg-[#E8ECE6] text-[#14251D] font-sans font-bold">Base: #E8ECE6</span>
+          <span class="px-2.5 py-1 rounded bg-[#D99B26] text-stone-950 font-bold">Acento: #D99B26 (Ámbar)</span>
+          <span class="px-2.5 py-1 rounded bg-stone-800 text-stone-300">Hero: Cormorant Display 8xl</span>
+          <span class="px-2.5 py-1 rounded bg-stone-800 text-stone-300">Lectura: Newsreader (Serif)</span>
+        </div>
+      </div>
+
+      <!-- Canvas simulado Mockup 9 -->
+      <div class="bg-[#E7ECE5] text-[#13231B] rounded-2xl border border-[#C5CEC2] shadow-2xl overflow-hidden blueprint-grid-sage p-6 md:p-14 relative">
+        <div class="absolute top-6 left-6 text-[#788B7E] font-mono text-xs">FOLIO N° 09 // AUDITORÍA CLÍNICA</div>
+        <div class="absolute top-6 right-6 text-[#788B7E] font-mono text-xs">SALUD MENTAL & PRODUCTO DIGITAL</div>
+
+        <!-- Encabezado refinado -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#C0CBC0] pb-6 mb-12">
+          <div class="flex items-center gap-3">
+            <span class="text-2xl text-[#D99B26]">✦</span>
+            <div>
+              <span class="font-cormorant text-3xl font-bold tracking-wide block leading-none">MotivarCare</span>
+              <span class="text-[10px] font-mono uppercase tracking-widest text-[#586C5F]">Cuaderno de Auditoría UX & Confianza Humana</span>
+            </div>
+          </div>
+
+          <nav class="flex items-center gap-2 font-mono text-xs">
+            <a href="#" class="px-3 py-1.5 rounded bg-[#14251D] text-[#E8ECE6]">§ 1. Diagnóstico</a>
+            <a href="#" class="px-3 py-1.5 text-[#3A4E42] hover:text-[#14251D]">§ 2. Heurísticas</a>
+            <a href="#" class="px-3 py-1.5 text-[#3A4E42] hover:text-[#14251D]">§ 3. Hallazgos (14)</a>
+            <a href="#" class="px-3 py-1.5 text-[#3A4E42] hover:text-[#14251D]">§ 4. Plan Terapéutico</a>
+          </nav>
+        </div>
+
+        <!-- Hero: Cormorant Display colosal con resalte dorado -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start mb-16">
+          <div class="lg:col-span-8 space-y-6">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded border border-[#D99B26]/50 bg-[#EFE9D7] text-[10px] font-mono uppercase tracking-widest text-[#8A6010] font-bold">
+              ESTUDIO PERICIAL DE USABILIDAD EN SALUD MENTAL
+            </div>
+
+            <h1 class="font-cormorant text-5xl sm:text-7xl md:text-8xl leading-[0.9] text-[#112017] font-semibold tracking-tight">
+              Cuando el diseño alivia o agrava la 
+              <span class="bg-[#F3E5BE] text-[#112017] px-2 py-0.5 inline-block font-normal italic border-b-2 border-[#D99B26]">ansiedad del paciente</span>.
+            </h1>
+
+            <div class="p-6 bg-[#DFE6DC] border-l-4 border-[#D99B26] rounded-r-xl space-y-3 max-w-2xl">
+              <span class="font-mono text-[10px] uppercase tracking-widest text-[#8A6010] font-bold block">
+                // Evaluación Heurística para el Directorio
+              </span>
+              <p class="font-newsreader text-base sm:text-lg text-[#203328] leading-relaxed">
+                El acto de buscar psicólogo es una declaración de vulnerabilidad. Si la interfaz web no disipa de inmediato las dudas sobre credenciales, costos por sesión y seguridad de la videollamada, el usuario no reclama ni envía un mensaje de soporte: sencillamente cierra la pestaña. En <span class="font-semibold text-[#112017]">motivarcare.com</span> este fenómeno representa una pérdida sustancial del retorno sobre la inversión en captación.
+              </p>
+            </div>
+          </div>
+
+          <!-- Panel de Anotaciones con acento ámbar -->
+          <div class="lg:col-span-4 bg-[#DFE6DB] border border-[#CBD5C8] rounded-xl p-6 space-y-5">
+            <div class="border-b border-[#BAC5B7] pb-3 flex items-center justify-between">
+              <div>
+                <span class="font-mono text-[10px] uppercase tracking-widest text-[#566A5E] block">Salud UX Global</span>
+                <span class="font-cormorant text-3xl font-bold text-[#112017]">62 / 100</span>
+              </div>
+              <span class="px-2.5 py-1 rounded bg-[#D99B26]/20 text-[#8A6010] font-mono text-[10px] uppercase font-bold border border-[#D99B26]/40">
+                Atención Requerida
+              </span>
+            </div>
+
+            <!-- Notas Marginales -->
+            <div class="space-y-3 font-mono text-xs">
+              <div class="p-3 bg-[#EAF0E7] rounded border border-[#CBD5C7]">
+                <span class="text-[10px] text-[#8A6010] font-bold block mb-1">Hallazgo #01 · Credenciales</span>
+                <p class="font-newsreader text-xs text-[#2A3E32]">Falta de matrícula médica visible en primer pliegue.</p>
+              </div>
+              <div class="p-3 bg-[#EAF0E7] rounded border border-[#CBD5C7]">
+                <span class="text-[10px] text-[#8A6010] font-bold block mb-1">Hallazgo #02 · Tarifas</span>
+                <p class="font-newsreader text-xs text-[#2A3E32]">Incertidumbre en valor de la sesión previa al agendamiento.</p>
+              </div>
+            </div>
+
+            <div class="pt-2 border-t border-[#BAC5B7] flex justify-between text-[11px] font-mono text-[#576B5F]">
+              <span>14 Hallazgos Documentados</span>
+              <strong class="text-[#14251D]">4 Quick Wins</strong>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ========================================================================== -->
+    <!-- MOCKUP 1: DOSSIER TÉCNICO ORIGINAL (Scale Studio)                          -->
+    <!-- ========================================================================== -->
+    <div id="mockup-1" class="space-y-6 hidden">
+      <div class="bg-stone-900 border border-stone-800 rounded-xl p-5 text-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div>
+          <span class="text-xs uppercase tracking-wider text-amber-400 font-mono font-bold">Concepto 1 · Inspirado en Scale Studio</span>
+          <h2 class="text-lg font-bold text-stone-100 font-sans mt-0.5">El Expediente Técnico (Technical Dossier Original)</h2>
+          <p class="text-xs text-stone-400 mt-1 max-w-2xl">
+            Tono cálido de archivo pericial (papel hueso, textura sutil, cruces de coordenadas y retícula milimétrica). Titulares en Instrument Serif con resaltador turquesa sobre papel.
+          </p>
+        </div>
+      </div>
+      <!-- Canvas M1 -->
+      <div class="bg-[#EBE7DF] text-stone-900 rounded-2xl border border-stone-300 shadow-2xl overflow-hidden blueprint-grid-light p-6 md:p-12 relative">
+        <h2 class="font-instrument text-5xl md:text-7xl leading-tight text-stone-950 font-normal">
+          La Fricción Invisible en la <span class="bg-[#8ee0d9] px-2 py-0.5">Atención Psicológica</span> Online.
+        </h2>
+        <p class="text-stone-700 text-sm mt-4 max-w-xl font-sans">
+          Estudio pericial de usabilidad y confianza en motivarcare.com bajo 10 heurísticas formales.
+        </p>
+      </div>
+    </div>
+
+    <!-- ============================================================================== -->
+    <!-- MOCKUP 2: EDITORIAL HUMANISTA (Maggie Appleton)                               -->
+    <!-- ============================================================================== -->
+    <div id="mockup-2" class="space-y-6 hidden">
+      <div class="bg-stone-900 border border-stone-800 rounded-xl p-5 text-sm">
+        <h2 class="text-lg font-bold text-stone-100 font-sans">El Cuaderno de Investigación (Digital Garden / Editorial)</h2>
+      </div>
+      <div class="bg-[#FBFBF9] text-stone-800 rounded-2xl border border-stone-200 shadow-2xl p-8 md:p-16 max-w-5xl mx-auto">
+        <h2 class="font-newsreader text-4xl sm:text-6xl text-stone-900 leading-[1.08] font-normal max-w-3xl">
+          La experiencia de sanar: usabilidad y confianza en MotivarCare.
+        </h2>
+      </div>
+    </div>
+
+    <!-- ============================================================================ -->
+    <!-- MOCKUP 3: RETÍCULA SUIZA (skøld.)                                            -->
+    <!-- ============================================================================ -->
+    <div id="mockup-3" class="space-y-6 hidden">
+      <div class="bg-stone-900 border border-stone-800 rounded-xl p-5 text-sm">
+        <h2 class="text-lg font-bold text-stone-100 font-sans">La Matriz de Precisión Suiza (Swiss Grid System)</h2>
+      </div>
+      <div class="bg-white text-black border border-neutral-900 shadow-2xl p-8">
+        <h2 class="font-playfair text-4xl sm:text-5xl font-bold tracking-tight mb-4">Construyendo confianza digital en salud mental.</h2>
+      </div>
+    </div>
+
+    <!-- ============================================================================================== -->
+    <!-- MOCKUP 4: DOSSIER DARK FORENSE                                                                -->
+    <!-- ============================================================================================== -->
+    <div id="mockup-4" class="space-y-6 hidden">
+      <div class="bg-stone-900 border border-amber-500/30 rounded-xl p-5 text-sm">
+        <h2 class="text-lg font-bold text-stone-100 font-sans">El Dossier Forense Oscuro (Dark Confidential Dossier)</h2>
+      </div>
+      <div class="bg-[#141413] text-stone-100 rounded-2xl border border-stone-800 shadow-2xl p-8 md:p-12 blueprint-grid-dark">
+        <h2 class="font-instrument italic text-5xl sm:text-7xl text-stone-100 font-normal">
+          Anatomía de una <span class="text-[#4ef2d2] not-italic underline decoration-amber-400/60">fuga de confianza</span> en salud mental.
+        </h2>
+      </div>
+    </div>
+
+    <!-- ============================================================================================== -->
+    <!-- MOCKUP 5: ARCHIVO SALVIA V1                                                                   -->
+    <!-- ============================================================================================== -->
+    <div id="mockup-5" class="space-y-6 hidden">
+      <div class="bg-stone-900 border border-emerald-500/30 rounded-xl p-5 text-sm">
+        <h2 class="text-lg font-bold text-stone-100 font-sans">El Archivo Clínico Salvia (Versión 1 Original)</h2>
+      </div>
+      <div class="bg-[#E7ECE5] text-[#162921] rounded-2xl border border-[#C5CEC2] shadow-2xl p-8 md:p-12 blueprint-grid-sage">
+        <h2 class="font-cormorant text-4xl sm:text-6xl text-[#12221B] font-semibold">
+          El costo de la incertidumbre en quien busca <em class="text-[#C95A3E]">apoyo psicológico</em>.
+        </h2>
+      </div>
+    </div>
+
+    <!-- ============================================================================================== -->
+    <!-- MOCKUP 6: LEDGER DE NEGOCIO                                                                    -->
+    <!-- ============================================================================================== -->
+    <div id="mockup-6" class="space-y-6 hidden">
+      <div class="bg-stone-900 border border-blue-500/30 rounded-xl p-5 text-sm">
+        <h2 class="text-lg font-bold text-stone-100 font-sans">El Ledger Contable de Negocio (Business Audit Matrix)</h2>
+      </div>
+      <div class="bg-[#F5F3ED] text-[#1A1918] rounded-2xl border-2 border-[#D8D4C8] shadow-2xl p-8 md:p-12">
+        <h1 class="font-playfair text-3xl sm:text-4xl font-black text-[#1A1918]">
+          MOTIVARCARE — BALANCE DE EXPERIENCIA & CONVERSIÓN
+        </h1>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- SCRIPT INTERACTIVO PARA ALTERNAR ENTRE LOS 9 MOCKUPS -->
+  <script>
+    function switchMockup(id) {
+      // Ocultar todos los mockups del 1 al 9
+      for (let i = 1; i <= 9; i++) {
+        const el = document.getElementById('mockup-' + i);
+        if (el) el.classList.add('hidden');
+      }
+
+      // Resetear clases de todos los botones
+      for (let i = 1; i <= 9; i++) {
+        const btn = document.getElementById('btn-mockup-' + i);
+        if (btn) {
+          // Estilo inactivo según grupo
+          if (i === 7) {
+            btn.className = "px-2.5 py-1 rounded-lg font-medium transition-all text-[#C2593F] hover:text-[#E07257] border border-[#C2593F]/40";
+          } else if (i === 8) {
+            btn.className = "px-2.5 py-1 rounded-lg font-medium transition-all text-blue-300 hover:text-blue-100 border border-blue-500/40";
+          } else if (i === 9) {
+            btn.className = "px-2.5 py-1 rounded-lg font-medium transition-all text-amber-300 hover:text-amber-100 border border-amber-500/40";
+          } else if (i >= 4 && i <= 6) {
+            btn.className = "px-2 py-1 rounded-md font-medium transition-all text-stone-400 hover:text-stone-200";
+          } else {
+            btn.className = "px-2 py-1 rounded-md font-medium transition-all text-stone-500 hover:text-stone-300";
+          }
+        }
+      }
+
+      // Mostrar el seleccionado
+      const target = document.getElementById('mockup-' + id);
+      if (target) target.classList.remove('hidden');
+
+      const activeBtn = document.getElementById('btn-mockup-' + id);
+      if (activeBtn) {
+        activeBtn.className = "px-2.5 py-1 rounded-lg font-bold transition-all bg-stone-100 text-stone-900 shadow-md ring-2 ring-white/40";
+      }
+    }
+  </script>
+</body>
+</html>
