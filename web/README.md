@@ -50,6 +50,20 @@ proximos_pasos:
 ---
 ```
 
+Opcionalmente, un frente puede destacar sus trabajos principales con el campo `iniciativas`. Cada una se muestra como una tarjeta con imagen, estado y botón:
+
+```yaml
+iniciativas:
+  - titulo: Investor deck
+    tipo: Presentación
+    fecha: Octubre 2026
+    estado: en-revision
+    descripcion: "Qué es y qué contiene."
+    imagen: /img/comercial/investor-deck.jpg   # archivo dentro de web/public/
+    enlace: /decks/investor-deck/index.html     # página del portal o URL externa
+    boton: Ver el investor deck
+```
+
 ### Encabezado de la portada
 
 ```yaml
