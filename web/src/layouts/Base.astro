@@ -1,0 +1,48 @@
+---
+import '@fontsource-variable/fraunces/full.css';
+import '@fontsource-variable/manrope';
+import '../styles/global.css';
+import { getCollection } from 'astro:content';
+import Marca from '../components/Marca.astro';
+
+interface Props { titulo: string; descripcion?: string; frenteActual?: string }
+const { titulo, descripcion = 'Portal interno de trabajo de MotivarCare', frenteActual } = Astro.props;
+const frentes = (await getCollection('frentes')).sort((a, b) => a.id.localeCompare(b.id));
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content={descripcion} />
+    <title>{titulo === 'Inicio' ? 'MotivarCare · Portal interno' : `${titulo} · MotivarCare`}</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M20 35c-8-5-15-10.5-15-18A8.6 8.6 0 0 1 20 12a8.6 8.6 0 0 1 15 5c0 3.6-1.6 6.7-4 9.3l2.6 6.2-6.8-2.6C25 31.6 22.6 33.4 20 35z' fill='%232A5543'/%3E%3Ccircle cx='25' cy='20.5' r='4' fill='%23F5C33B'/%3E%3C/svg%3E" />
+  </head>
+  <body>
+    <header class="barra">
+      <div class="contenedor">
+        <a class="marca" href="/">
+          <Marca />
+          <span>MOTIVARCARE <small>· Portal interno</small></span>
+        </a>
+        <nav class="nav" aria-label="Frentes">
+          {frentes.map((f) => (
+            <a href={`/${f.id}/`} aria-current={frenteActual === f.id ? 'page' : undefined}>
+              <span class="num">{f.data.numero}</span>{f.data.titulo}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="pie">
+      <div class="contenedor">
+        <span class="linea">Contenido generado a partir de los .md del repositorio</span>
+        <a href="https://github.com/motivarcare/motivarcare">github.com/motivarcare/motivarcare</a>
+      </div>
+    </footer>
+  </body>
+</html>

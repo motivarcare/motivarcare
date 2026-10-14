@@ -1,0 +1,12 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+const [ctx] = await getCollection('contexto');
+const { Content } = await render(ctx);
+---
+<Base titulo="Contexto del proyecto">
+  <div class="contenedor">
+    <nav class="migas" aria-label="Ubicación"><a href="/">Inicio</a><span>/</span><span>Contexto</span></nav>
+    <article class="prosa"><Content /></article>
+  </div>
+</Base>

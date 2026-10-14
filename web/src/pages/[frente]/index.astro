@@ -1,0 +1,115 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Estado from '../../components/Estado.astro';
+import { materiales, agrupar, tamano, fecha, urlDocumento, tituloDoc, humanizar, REPO_GITHUB, esDocumento } from '../../lib/portal';
+
+export async function getStaticPaths() {
+  const frentes = await getCollection('frentes');
+  return frentes.map((f) => ({ params: { frente: f.id }, props: { frente: f } }));
+}
+
+const { frente } = Astro.props;
+const { Content } = await render(frente);
+const docs = (await getCollection('documentos', (d) => esDocumento(d) && d.id.startsWith(frente.id + '/')))
+  .map((d) => ({ d, carpeta: d.id.split('/').slice(1, -1).join('/'), titulo: tituloDoc(d) }))
+  .sort((a, b) => a.carpeta.localeCompare(b.carpeta, 'es') || a.titulo.localeCompare(b.titulo, 'es'));
+const gruposDocs = agrupar(docs, (x) => x.carpeta.split('/')[0] || '');
+const mats = materiales(frente.id);
+const gruposMat = agrupar(mats, (m) => m.carpeta || '');
+const enRaiz = (k: string) => (k === '' ? 'En la carpeta principal' : humanizar(k));
+---
+<Base titulo={frente.data.titulo} descripcion={frente.data.resumen} frenteActual={frente.id}>
+  <div class="contenedor">
+    <nav class="migas" aria-label="Ubicación"><a href="/">Inicio</a><span>/</span><span>{frente.data.titulo}</span></nav>
+
+    <header class="cabecera">
+      <span class="numeral">{frente.data.numero}</span>
+      <div>
+        <h1>{frente.data.titulo}</h1>
+        <p class="resumen">{frente.data.resumen}</p>
+        <div class="datos">
+          <Estado estado={frente.data.estado} />
+          {frente.data.actualizado && <span>Actualizado el {fecha(frente.data.actualizado)}</span>}
+          <a href={`${REPO_GITHUB}/${frente.id}`}>Ver carpeta en GitHub ↗</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="cuerpo">
+      <article class="prosa"><Content /></article>
+
+      <aside>
+        <section class="panel">
+          <h2>Próximos pasos</h2>
+          {frente.data.proximos_pasos.length > 0 ? (
+            <ul class="pasos">{frente.data.proximos_pasos.map((p) => <li>{p}</li>)}</ul>
+          ) : (
+            <p class="vacio">Todavía no hay próximos pasos cargados.</p>
+          )}
+        </section>
+
+        <section class="panel">
+          <h2>Documentos <span class="cuenta">{docs.length}</span></h2>
+          {docs.length === 0 && <p class="vacio">Todavía no hay documentos .md en este frente.</p>}
+          {gruposDocs.map(([g, items]) => (
+            <div class="grupo">
+              {gruposDocs.length > 1 && <p class="titulo-grupo">{enRaiz(g)}</p>}
+              <ul class="lista-docs">
+                {items.map((x) => (
+                  <li><a href={urlDocumento(x.d.id)}><span>{x.titulo}</span></a></li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </section>
+
+        <section class="panel">
+          <h2>Materiales <span class="cuenta">{mats.length}</span></h2>
+          {mats.length === 0 && <p class="vacio">Todavía no hay materiales en este frente.</p>}
+          {gruposMat.length > 0 && (
+            <details open={mats.length <= 12}>
+              <summary>{mats.length <= 12 ? 'Archivos' : 'Ver los ' + mats.length + ' archivos'}</summary>
+              {gruposMat.map(([g, items]) => (
+                <div class="grupo">
+                  <p class="titulo-grupo">{enRaiz(g)}</p>
+                  <ul class="lista-docs">
+                    {items.map((m) => (
+                      <li>
+                        <a href={m.url} target="_blank" rel="noopener">
+                          <span><span class={`tipo tipo--${m.tipo}`}>{m.tipo}</span>{m.nombre}</span>
+                          <span class="meta">{tamano(m.bytes)}</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </details>
+          )}
+        </section>
+      </aside>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .cabecera { display: grid; grid-template-columns: auto 1fr; gap: 26px; align-items: start; margin-bottom: 44px; }
+  .numeral { font-family: var(--serif); font-size: 84px; line-height: 0.9; color: var(--salvia-fuerte); }
+  .cabecera h1 { font-size: clamp(36px, 4.6vw, 58px); }
+  .resumen { font-size: 18px; color: var(--tinta-suave); max-width: 60ch; margin: 12px 0 18px; }
+  .datos { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; font-size: 13.5px; color: var(--gris); }
+  .datos a { color: var(--verde-medio); font-weight: 600; text-decoration: none; }
+  .datos a:hover { text-decoration: underline; }
+  .cuerpo { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 48px; align-items: start; }
+  /* El H1 del README repite el título de la cabecera */
+  .cuerpo :global(.prosa > h1:first-child) { display: none; }
+  .cuenta { font-family: var(--sans); font-size: 13px; font-weight: 700; color: var(--gris); margin-left: 6px; }
+  details summary { cursor: pointer; font-size: 14px; font-weight: 700; color: var(--verde-medio); margin-bottom: 10px; }
+  details[open] summary { margin-bottom: 14px; }
+  @media (max-width: 960px) {
+    .cuerpo { grid-template-columns: 1fr; }
+    .cabecera { grid-template-columns: 1fr; gap: 6px; }
+    .numeral { font-size: 56px; }
+  }
+</style>

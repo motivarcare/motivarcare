@@ -37,6 +37,7 @@ El primer frente que se abordó fue la **auditoría integral de UX** del portal 
 
 | Carpeta | Frente |
 |---|---|
+| `00-resumen/` | Contenido de la portada del portal interno (`index.md`) |
 | `01-investigacion/` | Investigación (usuarios, mercado, competencia) |
 | `02-comercial/` | Comercial (investor deck, propuestas, modelo de negocio) |
 | `04-design-system/` | Design system (tokens, componentes, guías) |
@@ -60,7 +61,12 @@ Es el espacio de trabajo de la auditoría UX, el primer frente. **Con el tiempo 
 ---
 
 ## 4. Portal interno (`web/`)
-Es un portal HTML de uso interno para ir mostrando los trabajos de cada frente. Su diseño y su arquitectura están pendientes de definición. Cuando se definan, se documentan acá.
+Es el sitio de uso interno para seguir los trabajos de cada frente. Se armó el 14/10/2026.
+* **Tecnología:** [Astro](https://astro.build/) 5, con colecciones de contenido que leen los `.md` del repositorio. Con `npm run dev` (dentro de `web/`), cualquier cambio en un `.md` se ve al instante.
+* **Origen del contenido:** la portada sale de `00-resumen/index.md`. La página de cada frente sale del `README.md` de su carpeta, y su encabezado (frontmatter) define el título, el número, el estado, el resumen, la fecha de actualización y los próximos pasos. Los demás `.md` de cada frente se muestran como documentos. El resto de los archivos aparece como materiales, con enlace a GitHub.
+* **Estados posibles de un frente:** `sin-iniciar`, `en-curso`, `en-revision`, `completado`.
+* **Estilos:** los del investor deck. Fraunces para títulos, Manrope para textos, fondo crema, verdes bosque, tarjetas salvia y menta, y acento amarillo. Se mantiene el criterio "sólido = lo que existe; punteado = lo pendiente".
+* El detalle de uso y del formato de los encabezados está en `web/README.md`.
 
 ---
 

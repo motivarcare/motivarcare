@@ -1,0 +1,145 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Estado from '../components/Estado.astro';
+import Constelacion from '../components/Constelacion.astro';
+import { ETIQUETA_ESTADO, materiales, fecha, esDocumento } from '../lib/portal';
+
+const [inicio] = await getCollection('resumen', (e) => e.id === 'index');
+const { Content } = await render(inicio);
+const frentes = (await getCollection('frentes')).sort((a, b) => a.id.localeCompare(b.id));
+const docs = await getCollection('documentos', esDocumento);
+
+const fichas = frentes.map((f) => ({
+  ...f,
+  nDocs: docs.filter((d) => d.id.startsWith(f.id + '/')).length,
+  nMat: materiales(f.id).length,
+}));
+const conteo = Object.keys(ETIQUETA_ESTADO)
+  .map((e) => ({ e, n: frentes.filter((f) => f.data.estado === e).length }))
+  .filter((x) => x.n > 0);
+---
+<Base titulo="Inicio" descripcion={inicio.data.bajada}>
+  <section class="hero contenedor">
+    <div class="hero-texto">
+      <p class="eyebrow">Portal interno{inicio.data.actualizado && ` · actualizado el ${fecha(inicio.data.actualizado)}`}</p>
+      <h1>{inicio.data.titulo}</h1>
+      <p class="bajada">{inicio.data.bajada}</p>
+      <div class="resumen-estados">
+        {conteo.map((c) => (
+          <span><Estado estado={c.e} /> <b>{c.n}</b> {c.n === 1 ? 'frente' : 'frentes'}</span>
+        ))}
+      </div>
+    </div>
+    <div class="hero-ilustracion">
+      <Constelacion frentes={frentes.map((f) => ({ id: f.id, ...f.data }))} />
+    </div>
+  </section>
+
+  <section class="contenedor seccion">
+    <div class="encabezado">
+      <p class="eyebrow">Frentes de trabajo</p>
+      <h2>Elegí un frente</h2>
+    </div>
+    <div class="grilla">
+      {fichas.map((f) => (
+        <a class={`ficha ficha--${f.data.estado}`} href={`/${f.id}/`}>
+          <div class="ficha-cabeza">
+            <span class="numeral">{f.data.numero}</span>
+            <Estado estado={f.data.estado} />
+          </div>
+          <h3>{f.data.titulo}</h3>
+          <p>{f.data.resumen}</p>
+          <div class="ficha-pie">
+            <span>{f.nDocs} {f.nDocs === 1 ? 'documento' : 'documentos'} · {f.nMat} {f.nMat === 1 ? 'material' : 'materiales'}</span>
+            <span class="flecha" aria-hidden="true">→</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="contenedor seccion proyecto">
+    <div class="prosa"><Content /></div>
+    <aside class="panel">
+      <p class="eyebrow">Referencia</p>
+      <h2>Contexto del proyecto</h2>
+      <p class="vacio">Decisiones, estructura del repositorio, forma de trabajo y alcance de cada frente.</p>
+      <a class="boton" href="/contexto/">Abrir el contexto</a>
+    </aside>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items: center;
+    padding-top: 64px;
+    padding-bottom: 24px;
+  }
+  .hero h1 { font-size: clamp(40px, 5.4vw, 70px); margin: 18px 0 20px; }
+  .bajada { font-size: 19px; color: var(--tinta-suave); max-width: 36ch; margin: 0 0 28px; }
+  .resumen-estados { display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: 14px; color: var(--tinta-suave); }
+  .resumen-estados span { display: inline-flex; align-items: center; gap: 8px; }
+  .resumen-estados b { color: var(--bosque); }
+  .hero-ilustracion { max-width: 520px; justify-self: end; width: 100%; }
+
+  .seccion { margin-top: 72px; }
+  .encabezado h2 { font-size: 34px; margin-top: 10px; }
+  .grilla {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 18px;
+    margin-top: 28px;
+  }
+  .ficha {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    padding: 22px 22px 18px;
+    border-radius: var(--radio);
+    background: var(--menta);
+    border: 1.5px solid transparent;
+    transition: transform 0.18s, box-shadow 0.18s;
+    min-height: 236px;
+  }
+  .ficha--en-curso { background: var(--salvia); }
+  .ficha--en-revision { background: var(--amarillo-suave); }
+  .ficha--completado { background: var(--bosque); color: var(--crema); }
+  .ficha--completado h3, .ficha--completado .numeral { color: var(--crema); }
+  .ficha--sin-iniciar { background: transparent; border: 1.5px dashed var(--neutro); }
+  .ficha:hover { transform: translateY(-3px); box-shadow: 0 10px 24px -14px rgba(30, 64, 51, 0.45); }
+  .ficha-cabeza { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .numeral { font-family: var(--serif); font-size: 30px; color: var(--verde-medio); line-height: 1; }
+  .ficha h3 { font-size: 24px; margin: 16px 0 8px; }
+  .ficha p { font-size: 14.5px; line-height: 1.5; color: var(--tinta-suave); margin: 0 0 16px; }
+  .ficha--completado p { color: var(--salvia); }
+  .ficha-pie { margin-top: auto; display: flex; justify-content: space-between; align-items: center; font-size: 12.5px; font-weight: 600; color: var(--gris); }
+  .flecha { font-size: 18px; color: var(--bosque); transition: transform 0.18s; }
+  .ficha:hover .flecha { transform: translateX(4px); }
+
+  .proyecto { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 48px; align-items: start; }
+  .proyecto .panel { position: sticky; top: 90px; }
+  .proyecto .panel h2 { margin: 8px 0 8px; }
+  .boton {
+    display: inline-block;
+    margin-top: 16px;
+    background: var(--amarillo);
+    color: var(--bosque);
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 999px;
+  }
+  .boton:hover { background: #f0b81f; }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; padding-top: 40px; }
+    .hero-ilustracion { justify-self: center; max-width: 440px; }
+    .proyecto { grid-template-columns: 1fr; }
+    .proyecto .panel { position: static; }
+  }
+</style>

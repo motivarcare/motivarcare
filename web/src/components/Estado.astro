@@ -1,0 +1,5 @@
+---
+import { ETIQUETA_ESTADO } from '../lib/portal';
+const { estado = 'sin-iniciar' } = Astro.props;
+---
+<span class={`estado estado--${estado}`}>{ETIQUETA_ESTADO[estado] ?? estado}</span>

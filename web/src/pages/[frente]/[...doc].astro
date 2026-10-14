@@ -1,0 +1,71 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Estado from '../../components/Estado.astro';
+import { rutaDocumento, tituloDoc, REPO_GITHUB, humanizar, esDocumento } from '../../lib/portal';
+
+export async function getStaticPaths() {
+  const docs = await getCollection('documentos', esDocumento);
+  const frentes = await getCollection('frentes');
+  return docs.map((d) => {
+    const { frente, doc } = rutaDocumento(d.id);
+    return { params: { frente, doc }, props: { entrada: d, frente: frentes.find((f) => f.id === frente) } };
+  });
+}
+
+const { entrada, frente } = Astro.props;
+const { Content, headings } = await render(entrada);
+const titulo = tituloDoc(entrada);
+const indice = headings.filter((h) => h.depth === 2 || h.depth === 3);
+const carpetas = entrada.id.split('/').slice(1, -1);
+const archivo = (entrada.filePath ?? '').replace(/^\.\.\//, '');
+---
+<Base titulo={titulo} frenteActual={frente?.id}>
+  <div class="contenedor">
+    <nav class="migas" aria-label="Ubicación">
+      <a href="/">Inicio</a><span>/</span>
+      {frente && <><a href={`/${frente.id}/`}>{frente.data.titulo}</a><span>/</span></>}
+      {carpetas.map((c) => <><span>{humanizar(c)}</span><span>/</span></>)}
+      <span>{titulo}</span>
+    </nav>
+
+    <div class="doc">
+      <article class="prosa">
+        {entrada.data.estado && <p><Estado estado={entrada.data.estado} /></p>}
+        <Content />
+      </article>
+      <aside class="lateral">
+        {indice.length > 2 && (
+          <nav class="panel indice" aria-label="Contenido del documento">
+            <p class="eyebrow">En este documento</p>
+            <ul>
+              {indice.map((h) => <li class={`n${h.depth}`}><a href={`#${h.slug}`}>{h.text}</a></li>)}
+            </ul>
+          </nav>
+        )}
+        <div class="panel fuente">
+          <p class="eyebrow">Archivo fuente</p>
+          <code>{archivo}</code>
+          <a href={`${REPO_GITHUB}/${archivo.split('/').map(encodeURIComponent).join('/')}`} target="_blank" rel="noopener">Ver en GitHub ↗</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .doc { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 56px; align-items: start; margin-top: 12px; }
+  .lateral { position: sticky; top: 90px; max-height: calc(100vh - 110px); overflow-y: auto; }
+  .indice ul { list-style: none; padding: 0; margin: 12px 0 0; font-size: 13.5px; line-height: 1.4; }
+  .indice li { margin: 7px 0; }
+  .indice li.n3 { padding-left: 14px; font-size: 13px; }
+  .indice a { text-decoration: none; color: var(--tinta-suave); }
+  .indice a:hover { color: var(--bosque); text-decoration: underline; text-decoration-color: var(--amarillo); }
+  .fuente code { display: block; font-size: 12px; word-break: break-all; color: var(--tinta-suave); margin: 10px 0; }
+  .fuente a { font-size: 13.5px; font-weight: 700; color: var(--verde-medio); text-decoration: none; }
+  @media (max-width: 960px) {
+    .doc { grid-template-columns: 1fr; }
+    .lateral { position: static; max-height: none; order: -1; }
+    .indice { display: none; }
+  }
+</style>

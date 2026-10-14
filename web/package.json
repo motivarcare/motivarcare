@@ -1,0 +1,20 @@
+{
+  "name": "motivarcare-portal",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Portal interno de trabajo de MotivarCare. Lee los .md de cada frente del repositorio.",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@fontsource-variable/fraunces": "5.2.8",
+    "@fontsource-variable/manrope": "5.2.8",
+    "astro": "5.18.2"
+  },
+  "engines": {
+    "node": ">=18.20.8"
+  }
+}

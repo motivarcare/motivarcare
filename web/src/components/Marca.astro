@@ -1,0 +1,9 @@
+---
+// Marca simplificada: mancha salvia con un par paciente (punto) + terapeuta (círculo).
+const { tam = 30 } = Astro.props;
+---
+<svg width={tam} height={tam} viewBox="0 0 40 40" aria-hidden="true">
+  <path d="M20 35c-8-5-15-10.5-15-18A8.6 8.6 0 0 1 20 12a8.6 8.6 0 0 1 15 5c0 3.6-1.6 6.7-4 9.3l2.6 6.2-6.8-2.6C25 31.6 22.6 33.4 20 35z" fill="#D6E7DC" />
+  <circle cx="15.5" cy="20.5" r="3.2" fill="#1E4033" />
+  <circle cx="25" cy="20.5" r="4" fill="#F5C33B" stroke="#1E4033" stroke-width="1.6" />
+</svg>

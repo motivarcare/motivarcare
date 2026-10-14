@@ -1,0 +1,52 @@
+---
+/* Ilustración de la portada: cada frente es un punto sobre una mancha salvia.
+   Sólido = frente con trabajo en marcha; punteado = todavía sin iniciar. */
+interface F { id: string; numero: string; titulo: string; estado: string }
+const { frentes } = Astro.props as { frentes: F[] };
+const W = 520, H = 440;
+const cx = 262, cy = 226;
+const n = frentes.length;
+const nodos = frentes.map((f, i) => {
+  const a = (-Math.PI / 2) + (i / n) * Math.PI * 2;
+  const rx = 172 + (i % 2 ? 18 : -10);
+  const ry = 150 + (i % 3 === 0 ? 14 : -6);
+  return { ...f, x: cx + Math.cos(a) * rx, y: cy + Math.sin(a) * ry };
+});
+const activo = (e: string) => e !== 'sin-iniciar';
+---
+<svg class="constelacion" viewBox={`0 0 ${W} ${H}`} role="img" aria-label="Mapa de los frentes del proyecto y su estado">
+  <defs>
+    <pattern id="trama" width="9" height="9" patternUnits="userSpaceOnUse">
+      <circle cx="1.5" cy="1.5" r="1.1" fill="#1E4033" opacity="0.16" />
+    </pattern>
+  </defs>
+  <path class="mancha" d="M86 150C110 66 214 30 300 44c96 16 170 80 168 170-2 84-58 158-150 184-104 30-214-6-252-86-24-52-1-112 20-162z" fill="#D6E7DC" />
+  <path d="M86 150C110 66 214 30 300 44c96 16 170 80 168 170-2 84-58 158-150 184-104 30-214-6-252-86-24-52-1-112 20-162z" fill="url(#trama)" />
+  <circle cx={cx} cy={cy} r="96" fill="none" stroke="#1E4033" stroke-width="1" stroke-dasharray="2 6" opacity="0.5" />
+  <circle cx={cx} cy={cy} r="132" fill="none" stroke="#1E4033" stroke-width="1" opacity="0.18" />
+  {nodos.map((nd) => (
+    <line x1={cx} y1={cy} x2={nd.x} y2={nd.y} stroke="#1E4033" stroke-width={activo(nd.estado) ? 1.6 : 1} stroke-dasharray={activo(nd.estado) ? undefined : '3 5'} opacity={activo(nd.estado) ? 0.8 : 0.45} />
+  ))}
+  <circle cx={cx} cy={cy} r="15" fill="#1E4033" />
+  <circle cx={cx} cy={cy} r="5.5" fill="#F5C33B" />
+  {nodos.map((nd) => (
+    <a href={`/${nd.id}/`}>
+      <g class={`nodo ${activo(nd.estado) ? 'nodo--activo' : ''}`}>
+        {activo(nd.estado) && <circle class="halo" cx={nd.x} cy={nd.y} r="22" fill="#9FC9AE" opacity="0.55" />}
+        <circle cx={nd.x} cy={nd.y} r="15" fill={activo(nd.estado) ? '#1E4033' : '#F5F3EB'} stroke="#1E4033" stroke-width="1.6" stroke-dasharray={activo(nd.estado) ? undefined : '3 3'} />
+        <text x={nd.x} y={nd.y + 4} text-anchor="middle" font-size="11" font-weight="800" fill={activo(nd.estado) ? '#F5F3EB' : '#1E4033'} font-family="Manrope Variable, sans-serif">{nd.numero}</text>
+        <text x={nd.x} y={nd.y + (nd.y < cy ? -24 : 34)} text-anchor="middle" font-size="12.5" font-weight="600" fill="#1E4033" font-family="Manrope Variable, sans-serif">{nd.titulo}</text>
+      </g>
+    </a>
+  ))}
+</svg>
+
+<style>
+  .constelacion { width: 100%; height: auto; overflow: visible; }
+  .mancha { transform-origin: 50% 50%; animation: respirar 14s ease-in-out infinite; }
+  .halo { transform-box: fill-box; transform-origin: center; animation: latir 2.8s ease-in-out infinite; }
+  .nodo { transition: transform 0.2s; transform-box: fill-box; }
+  a:hover .nodo text { text-decoration: underline; }
+  @keyframes respirar { 0%,100% { transform: scale(1) rotate(0deg); } 50% { transform: scale(1.03) rotate(-1.5deg); } }
+  @keyframes latir { 0%,100% { transform: scale(0.85); opacity: 0.55; } 50% { transform: scale(1.15); opacity: 0.25; } }
+</style>
