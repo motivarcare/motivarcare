@@ -1,0 +1,67 @@
+---
+/* Trabajos destacados de un frente (campo "iniciativas" del README). */
+import Estado from './Estado.astro';
+interface Iniciativa { titulo: string; tipo?: string; fecha?: string; estado?: string; descripcion: string; imagen?: string; enlace?: string; boton: string }
+const { items } = Astro.props as { items: Iniciativa[] };
+const externo = (u?: string) => !!u && /^https?:\/\//.test(u);
+---
+<section class="iniciativas" aria-label="Iniciativas">
+  {items.map((it, i) => (
+    <article class="iniciativa">
+      {it.imagen && (
+        <a class="imagen" href={it.enlace} target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+          <img src={it.imagen} alt="" loading={i === 0 ? 'eager' : 'lazy'} />
+        </a>
+      )}
+      <div class="texto">
+        <p class="meta">
+          <span class="indice">{String(i + 1).padStart(2, '0')}</span>
+          {it.tipo && <span>{it.tipo}</span>}
+          {it.fecha && <span>· {it.fecha}</span>}
+        </p>
+        <h2>{it.titulo}</h2>
+        {it.estado && <Estado estado={it.estado} />}
+        <p class="descripcion">{it.descripcion}</p>
+        {it.enlace && (
+          <a class="boton-iniciativa" href={it.enlace} target="_blank" rel="noopener">
+            {it.boton} <span aria-hidden="true">{externo(it.enlace) ? '↗' : '→'}</span>
+          </a>
+        )}
+      </div>
+    </article>
+  ))}
+</section>
+
+<style>
+  .iniciativas { display: grid; gap: 28px; margin-bottom: 56px; }
+  .iniciativa {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: 40px;
+    align-items: center;
+    padding: 28px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(30, 64, 51, 0.12);
+  }
+  .iniciativa:nth-child(even) .imagen { order: 2; }
+  .imagen { display: block; border-radius: 18px; overflow: hidden; background: var(--salvia); box-shadow: 0 30px 60px -32px rgba(20, 41, 31, 0.45); transition: transform 0.25s; }
+  .imagen:hover { transform: translateY(-3px); }
+  .imagen img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+  .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 0 0 10px; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--verde-medio); }
+  .indice { display: inline-flex; width: 30px; height: 30px; border-radius: 50%; align-items: center; justify-content: center; background: var(--bosque); color: var(--crema); letter-spacing: 0; margin-right: 6px; }
+  .texto h2 { font-size: clamp(26px, 2.6vw, 34px); margin-bottom: 12px; }
+  .descripcion { color: var(--tinta-suave); font-size: 16px; line-height: 1.6; margin: 16px 0 24px; }
+  .boton-iniciativa {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--amarillo); color: var(--bosque);
+    font-weight: 700; font-size: 15px; text-decoration: none;
+    padding: 12px 22px; border-radius: 999px;
+    transition: background 0.2s;
+  }
+  .boton-iniciativa:hover { background: #f0b81f; }
+  @media (max-width: 900px) {
+    .iniciativa { grid-template-columns: 1fr; gap: 22px; padding: 18px; }
+    .iniciativa:nth-child(even) .imagen { order: 0; }
+  }
+</style>

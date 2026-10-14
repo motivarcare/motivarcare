@@ -32,6 +32,21 @@ const frentes = defineCollection({
     resumen: z.string().default(''),
     actualizado: z.coerce.date().optional(),
     proximos_pasos: z.array(z.string()).default([]),
+    // Trabajos destacados del frente, que se muestran como tarjetas con imagen y botón
+    iniciativas: z
+      .array(
+        z.object({
+          titulo: z.string(),
+          tipo: z.string().optional(),
+          fecha: z.string().optional(),
+          estado: z.enum(ESTADOS).optional(),
+          descripcion: z.string().default(''),
+          imagen: z.string().optional(),
+          enlace: z.string().optional(),
+          boton: z.string().default('Abrir'),
+        }),
+      )
+      .default([]),
   }),
 });
 

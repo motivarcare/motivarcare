@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Estado from '../../components/Estado.astro';
 import PaginaDS from '../../components/ds/PaginaDS.astro';
+import Iniciativas from '../../components/Iniciativas.astro';
 import { materiales, agrupar, tamano, fecha, urlDocumento, tituloDoc, humanizar, REPO_GITHUB, esDocumento } from '../../lib/portal';
 
 export async function getStaticPaths() {
@@ -37,6 +38,8 @@ const enRaiz = (k: string) => (k === '' ? 'En la carpeta principal' : humanizar(
         </div>
       </div>
     </header>
+
+    {frente.data.iniciativas.length > 0 && <Iniciativas items={frente.data.iniciativas} />}
 
     {esDS && <PaginaDS html={frente.rendered?.html ?? ''} />}
 
