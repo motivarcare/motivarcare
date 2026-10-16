@@ -55,7 +55,7 @@ Cada carpeta tiene un `README.md` que explica para qué es.
 Es el espacio de trabajo de la auditoría UX, el primer frente. **Con el tiempo todo su contenido se va a mudar a `07-auditoria/`.** Mientras tanto, sigue siendo la fuente de verdad de la auditoría:
 * `medios/`: capturas del portal auditado, marcas y referencias gráficas.
 * `bitacora-auditoria-ux/`: una subcarpeta por caso (`caso-NN-slug/`), cada una con su `caso-NN-slug.md` y su carpeta `capturas/`.
-* `motivarcare.github.io/`: copia local del repositorio del informe de auditoría, que en GitHub pasó a llamarse `motivarcare/motivarcare-audit` (15/10/2026) y ya no se publica como sitio.
+* `motivarcare.github.io/`: copia local del repositorio del informe de auditoría, que en GitHub pasó a llamarse `motivarcare/motivarcare-audit` (15/10/2026). Se publica en https://motivarcare.github.io/motivarcare-audit/.
 * `exploracion/`: prototipos de estilo, mockups y comparativas previas.
 * `presentacion-auditoria-ux/`, `documentos/`, `auditoria-ux.md`: material complementario.
 
@@ -116,7 +116,7 @@ Es un estilo con identidad visual propia, independiente de la marca auditada:
 ### 6.5 Arquitectura del sitio del informe (repositorio `motivarcare-audit`, antes `motivarcare.github.io`)
 * **Tecnología:** HTML5 semántico + Tailwind CSS + Vanilla JS modular, con **Vite**.
 * **Componentes:** `index.html` (dashboard, dictamen C-Level, scorecard, selector de áreas, catálogo de hallazgos), `src/css/style.css`, `src/js/audit-data.js` (datos, heurísticas y matriz de hallazgos) y `src/js/app.js` (filtros y buscador).
-* **CI/CD:** hasta el 15/10/2026 se publicaba en GitHub Pages con un workflow de GitHub Actions. Ese workflow se quitó al renombrar el repositorio a `motivarcare-audit`: el informe ya no se publica automáticamente.
+* **CI/CD:** GitHub Actions (`.github/workflows/deploy.yml`). Cada push a `main` compila con Vite y publica el informe en GitHub Pages como sitio de proyecto: https://motivarcare.github.io/motivarcare-audit/. La página del frente 07 en el portal enlaza a ese informe.
 
 ### 6.6 Próximos pasos de la auditoría
 1. Seguir con la auditoría caso por caso en las 3 superficies, según el flujo de la sección 6.4.
