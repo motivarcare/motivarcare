@@ -1,17 +1,76 @@
 ---
 titulo: Landing page
 numero: "09"
-estado: en-curso
-resumen: "Contenidos de la landing page pública de MotivarCare (www.motivarcare.com): textos, estructura de secciones y llamados a la acción."
+estado: en-revision
+resumen: "Contenidos de la landing page pública de MotivarCare (www.motivarcare.com): la versión actual relevada y una propuesta nueva con el design system de la marca."
 actualizado: 2026-10-15
 proximos_pasos:
-  - "Revisar los textos actuales y definir qué se mantiene, qué se reescribe y qué se agrega."
-  - "Unificar el tratamiento (hoy mezcla \"tú\", \"usted\" y voseo)."
+  - "Revisar la propuesta y ajustar textos y secciones."
+  - "Completar los placeholders: fotos con tratamiento de marca, equipo de MotivarCare y perfil de ejemplo."
+  - "Confirmar con el equipo los datos nuevos (verificación de perfiles, países, tratamiento de las reseñas)."
+iniciativas:
+  - titulo: Propuesta de nueva landing page
+    tipo: Página web
+    fecha: Octubre 2026
+    estado: en-revision
+    descripcion: "Rediseño de motivarcare.com con el design system de MotivarCare. Mantiene los contenidos actuales, unifica el tratamiento en voseo, suma secciones nuevas pensadas para quien busca terapia y deja indicados los lugares de las imágenes."
+    imagen: /img/landing/propuesta-landing.jpg
+    enlace: /landing/index.html
+    boton: Ver la propuesta
 ---
 
 # 09 · Landing page
 
 Contenidos de la landing page pública de MotivarCare ([www.motivarcare.com](https://www.motivarcare.com/)).
+
+## Propuesta nueva
+
+Primera versión de una landing renovada, armada con el design system de MotivarCare (`04-design-system`). Usa los contenidos actuales con ajustes chicos, suma algunas secciones y deja indicado con **PLACEHOLDER** el lugar de cada imagen.
+
+- **Dónde está:** `web/public/landing/`. Se ve en el portal en `/landing/index.html`.
+- **Cómo está armada:** HTML, CSS y JavaScript separados (`index.html`, `css/estilos.css`, `js/main.js`), con las fuentes y el logo dentro de la misma carpeta. No depende del portal: la carpeta `landing/` se puede copiar tal cual y publicar como un sitio independiente.
+- **Indexación:** tiene `noindex` mientras sea una propuesta.
+
+### Criterios
+
+1. **Credibilidad antes que promesa.** Se moderan las afirmaciones que no se pueden respaldar ("miles de psicólogos", "la red más grande de la región", "tiempo récord") y se reemplazan por datos verificables del servicio: matrícula verificada, sesiones de 50 minutos, precio de referencia, sin suscripción.
+2. **Hablarle a quien busca ayuda, no a "un usuario".** Se agrega una sección sobre los motivos reales de consulta y la primera vez en terapia, y se sacan los textos que sonaban internos o genéricos ("la misma idea que guía sitios de servicios modernos").
+3. **Lo humano primero; la IA, en su lugar.** La terapia (sólido) y Maca (punteado) se presentan como dos territorios con un límite claro, siguiendo el principio "sólido = humano; punteado = IA".
+4. **Seguridad visible.** El aviso de crisis deja de estar escondido: aparece arriba, en la sección de Maca, en las preguntas frecuentes y en el pie, con enlace a las líneas de apoyo.
+5. **Un solo tratamiento: voseo.** Se unifica "tú", "usted" y voseo en un voseo rioplatense amable ("Encontrá", "Contanos", "Reservá").
+6. **Calma visual.** Fondo crema, secciones alternadas en menta, un solo acento amarillo por bloque, una animación principal por pantalla y nada de emojis (las banderas pasan a ser chips con el nombre del país). Con "reducir movimiento" no hay animaciones.
+
+### Cambios por sección
+
+| Sección | Qué cambia |
+|---|---|
+| Encabezado | Se reordena la navegación (Cómo funciona, Profesionales, Maca, Precios, Preguntas) y se suma el acceso "Soy profesional". |
+| Hero | Mismo mensaje, en voseo, con "ideal" destacado. Se agregan un segundo botón ("Cómo funciona") y tres garantías concretas debajo. La tarjeta de perfil queda rotulada como **Ejemplo** y sin número de matrícula. La composición de videollamada sobre el corazón usa placeholders para las fotos. |
+| **Para quién es** (nueva) | "No hace falta estar en crisis para empezar terapia." Chips con motivos de consulta (ansiedad, dormir mal, duelo, vínculos, primera vez en terapia, etc.) y el aviso de crisis con enlace a las líneas de apoyo. |
+| Por qué MotivarCare | Las cinco razones se mantienen, con títulos y textos moderados. Toma el título "Pensado para empezar sin fricción", que antes estaba en un bloque aparte. Las banderas pasan a chips de texto y se suma un mapa de puntos. El chat de ejemplo queda en voseo y se anima mensaje por mensaje. |
+| Psicólogos certificados | Pasa a explicar **cómo** se verifica: cada profesional carga matrícula, título y experiencia, y el equipo los revisa antes de publicar el perfil. Se acompaña con una ficha de revisión. |
+| Cómo empezar | Los mismos cuatro pasos, en voseo, con un botón "Crear mi cuenta" al final. |
+| Maca | Se agrega el bloque de los dos territorios (la terapia y el apoyo). El texto, los beneficios, el aviso y el chat se mantienen, en voseo. La ventana de Maca va con borde punteado. |
+| Quiénes somos | Se corrige "Maca impulsó MotivarCare" (Maca es la IA, no la fundadora) por "MotivarCare nació en Argentina…". Se dejan placeholders para la foto del equipo y para un texto sobre quiénes lo integran. |
+| Precios | Mismo contenido, en una tarjeta de precio y una lista de "Lo que tenés que saber". |
+| Reseñas | Se muestran todas juntas en una grilla en lugar de un carrusel, sin editar, con la aclaración "Reseñas publicadas por pacientes en la plataforma, sin editar". Se saca el "hace 163 días". |
+| Preguntas frecuentes | Las seis en voseo, más dos nuevas: "¿Los profesionales tienen matrícula?" y "¿Qué hago si estoy en crisis?". |
+| **Para profesionales** (nueva) | "¿Sos psicólogo o psicóloga?", con los tres pasos para sumarse y un botón al portal de profesionales. |
+| **Cierre** (nueva) | Banda verde bosque con "Tu cambio empieza acá." y los botones "Empezá hoy" y "Tengo dudas". |
+| Pie | Mismos enlaces, ordenados en columnas (portales e información). |
+| Botón flotante | "Escribile a Maca", con borde punteado. |
+
+### Placeholders pendientes
+
+- Hero: foto de la profesional en videollamada (940 × 630) y foto del paciente en su casa (356 × 396), con el tratamiento de color de la marca.
+- Quiénes somos: foto o retratos del equipo, y un texto sobre quiénes lo integran y qué profesionales asesoran a MotivarCare.
+- Perfil de ejemplo del hero: reemplazarlo por un perfil real (con autorización) o dejarlo rotulado como ejemplo.
+
+### A confirmar con el equipo
+
+- Que la revisión de matrícula, título y experiencia antes de publicar un perfil se describa como en la propuesta.
+- La lista de países donde se ofrece el servicio.
+- Si las reseñas pueden mostrarse con nombre o solo con la inicial.
 
 ## Versión actual en producción
 
@@ -193,7 +252,3 @@ Carrusel con flechas (← →). Todas las reseñas tienen 5 estrellas y la etiqu
 - **Tratamiento mezclado:** el hero y algunas tarjetas usan "tú" ("Encuentra tu psicólogo", "tu bienestar") y voseo ("¡Tu cambio empieza acá!"), mientras que el resto del sitio usa "usted" ("Cree la cuenta", "Elija horario").
 - **"Miles de psicólogos" y "la red más grande de la región"** son afirmaciones que conviene respaldar con datos o moderar.
 - Las reseñas se muestran tal como están publicadas, con sus faltas de tildes.
-
-## Nueva versión
-
-Pendiente.

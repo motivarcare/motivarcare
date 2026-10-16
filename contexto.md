@@ -66,6 +66,7 @@ Es el sitio de uso interno para seguir los trabajos de cada frente. Se armó el 
 * **Origen del contenido:** la portada sale de `00-resumen/index.md`. La página de cada frente sale del `README.md` de su carpeta, y su encabezado (frontmatter) define el título, el número, el estado, el resumen, la fecha de actualización y los próximos pasos. Los demás `.md` de cada frente se muestran como documentos. El resto de los archivos aparece como materiales, con enlace a GitHub.
 * **Estados posibles de un frente:** `sin-iniciar`, `en-curso`, `en-revision`, `completado`.
 * **Estilos:** los del investor deck. Fraunces para títulos, Manrope para textos, fondo crema, verdes bosque, tarjetas salvia y menta, y acento amarillo. Se mantiene el criterio "sólido = lo que existe; punteado = lo pendiente".
+* Dentro de `web/public/` también viven piezas independientes del portal: el investor deck (`decks/investor-deck/`) y la propuesta de nueva landing pública (`landing/`), que tiene su propio HTML, CSS y JS para poder publicarse aparte.
 * El detalle de uso y del formato de los encabezados está en `web/README.md`.
 
 ---

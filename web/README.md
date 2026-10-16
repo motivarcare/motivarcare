@@ -98,5 +98,7 @@ web/
 ├── src/components/         logo, chip de estado, ilustración de la portada (la del investor deck), mapa de frentes
 ├── src/pages/              portada, página de frente, documento y contexto
 ├── src/styles/global.css   estilos (paleta y tipografía del investor deck)
-└── public/img/             fotos intervenidas de la portada del investor deck
+├── public/img/             imágenes del portal (fotos de la portada e imágenes de las iniciativas)
+├── public/decks/           investor deck en HTML (02-comercial)
+└── public/landing/         propuesta de nueva landing pública (09-landing-page): HTML, CSS y JS propios, sin depender del portal
 ```
