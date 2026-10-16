@@ -25,11 +25,12 @@ El primer frente que se abordó fue la **auditoría integral de UX** del portal 
 
 ## 2. Forma de trabajo con el repositorio (vigente desde el 14/10/2026)
 
-* **Repositorio:** [`motivarcare/motivarcare`](https://github.com/motivarcare/motivarcare), rama `main`.
+* **Repositorio:** [`motivarcare/motivarcare.github.io`](https://github.com/motivarcare/motivarcare.github.io), rama `main`. Hasta el 15/10/2026 se llamó `motivarcare/motivarcare`.
+* **Publicación:** cada push a `main` compila el portal (`web/`) y lo publica en GitHub Pages, en https://motivarcare.github.io/ (workflow `.github/workflows/deploy.yml`).
 * **Claude trabaja directamente sobre el repositorio en GitHub**: crea y edita archivos, hace los commits y los sube con push.
 * **Gastón hace `git pull`** de vez en cuando en su copia local (`C:\Users\gasto\Trabajo\ux-ui\motivarcare`) para bajar los cambios y probarlos.
 * Para evitar conflictos, conviene no editar la copia local sin hacer pull antes. Si Gastón cambia algo localmente, lo sube con push antes de pedirle nuevas tareas a Claude.
-* **Visibilidad:** por ahora el repositorio es **público** (decisión del 14/10/2026). Como lleva el mismo nombre que la cuenta, GitHub muestra su `README.md` en el perfil público. Todo lo que se suba es visible para cualquiera, así que conviene revisar qué se incluye en cada push (por ejemplo, documentos comerciales o datos sensibles).
+* **Visibilidad:** por ahora el repositorio es **público** (decisión del 14/10/2026) y el portal se publica abierto en GitHub Pages. Todo lo que se suba es visible para cualquiera, así que conviene revisar qué se incluye en cada push (por ejemplo, documentos comerciales o datos sensibles). Las páginas llevan `noindex` para que no aparezcan en buscadores.
 
 ---
 
@@ -54,7 +55,7 @@ Cada carpeta tiene un `README.md` que explica para qué es.
 Es el espacio de trabajo de la auditoría UX, el primer frente. **Con el tiempo todo su contenido se va a mudar a `07-auditoria/`.** Mientras tanto, sigue siendo la fuente de verdad de la auditoría:
 * `medios/`: capturas del portal auditado, marcas y referencias gráficas.
 * `bitacora-auditoria-ux/`: una subcarpeta por caso (`caso-NN-slug/`), cada una con su `caso-NN-slug.md` y su carpeta `capturas/`.
-* `motivarcare.github.io/`: repositorio del sitio web del informe final (GitHub Pages).
+* `motivarcare.github.io/`: copia local del repositorio del informe de auditoría, que en GitHub pasó a llamarse `motivarcare/motivarcare-audit` (15/10/2026) y ya no se publica como sitio.
 * `exploracion/`: prototipos de estilo, mockups y comparativas previas.
 * `presentacion-auditoria-ux/`, `documentos/`, `auditoria-ux.md`: material complementario.
 
@@ -112,10 +113,10 @@ Es un estilo con identidad visual propia, independiente de la marca auditada:
 5. **`src/js/audit-data.js` y el informe HTML NO se actualizan en cada iteración.** Se actualizan una sola vez por caso, cuando Gastón confirma el cierre y lo pide explícitamente.
 6. Al cerrar el caso, el contenido del `.md` pasa a `audit-data.js` (recalculando `findingsCount` del área), las capturas se sincronizan a `public/capturas/caso-NN/` y se verifica todo: stage → commit con `expectedMtimeMs` → stage-back → SHA256 para texto y diff de píxeles para imágenes.
 
-### 6.5 Arquitectura del sitio del informe (`motivarcare.github.io`)
+### 6.5 Arquitectura del sitio del informe (repositorio `motivarcare-audit`, antes `motivarcare.github.io`)
 * **Tecnología:** HTML5 semántico + Tailwind CSS + Vanilla JS modular, con **Vite**.
 * **Componentes:** `index.html` (dashboard, dictamen C-Level, scorecard, selector de áreas, catálogo de hallazgos), `src/css/style.css`, `src/js/audit-data.js` (datos, heurísticas y matriz de hallazgos) y `src/js/app.js` (filtros y buscador).
-* **CI/CD:** GitHub Actions (`.github/workflows/deploy.yml`). Cada `git push` compila con Vite y publica en GitHub Pages.
+* **CI/CD:** hasta el 15/10/2026 se publicaba en GitHub Pages con un workflow de GitHub Actions. Ese workflow se quitó al renombrar el repositorio a `motivarcare-audit`: el informe ya no se publica automáticamente.
 
 ### 6.6 Próximos pasos de la auditoría
 1. Seguir con la auditoría caso por caso en las 3 superficies, según el flujo de la sección 6.4.

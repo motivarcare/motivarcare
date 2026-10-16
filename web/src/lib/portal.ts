@@ -3,7 +3,7 @@ import path from 'node:path';
 
 /** Raíz del repositorio (web/ está un nivel abajo). */
 export const RAIZ = path.resolve(process.cwd(), '..');
-export const REPO_GITHUB = 'https://github.com/motivarcare/motivarcare/blob/main';
+export const REPO_GITHUB = 'https://github.com/motivarcare/motivarcare.github.io/blob/main';
 
 export const ETIQUETA_ESTADO: Record<string, string> = {
   'sin-iniciar': 'Sin iniciar',
