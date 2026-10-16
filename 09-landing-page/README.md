@@ -75,7 +75,13 @@ Primera versión de una landing renovada, armada con el design system de Motivar
 
 ## Versión actual en producción
 
-Relevada el 15 de octubre de 2026. Es el texto tal como aparece en el sitio, en el orden de la página y con su jerarquía. No incluye imágenes. Los textos van entre comillas de bloque para distinguirlos de las notas.
+Relevada el 15 de octubre de 2026. Es el texto tal como aparece en el sitio, en el orden de la página y con su jerarquía. Los textos van entre comillas de bloque para distinguirlos de las notas. Las capturas muestran las tres partes más representativas de la página en escritorio.
+
+![Hero de la landing actual: titular, botón principal, foto y tarjeta de match con una profesional](./capturas/actual-hero.jpg)
+
+![Tarjetas de beneficios con fotos y el inicio de la sección "Pensado para empezar sin fricción"](./capturas/actual-por-que.jpg)
+
+![Sección de Maca, la asistente con IA, con su texto y la ventana de chat](./capturas/actual-maca.jpg)
 
 ### Metadatos
 
