@@ -248,17 +248,15 @@ img { max-width: 100%; display: block; }
 }
 
 /* ---------- Para quién ---------- */
-.para-quien { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: clamp(32px, 5vw, 64px); align-items: start; }
-.motivos { display: flex; flex-wrap: wrap; gap: 10px; margin: 8px 0 22px; padding: 0; list-style: none; }
-.motivos li { font-size: 15px; font-weight: 600; color: var(--bosque); background: var(--superficie); border: 1px solid var(--linea); padding: 10px 16px; border-radius: 99px; }
-.motivos li:nth-child(3n + 1) { background: var(--salvia); border-color: transparent; }
-.motivos li:nth-child(4n + 2) { background: var(--lima); border-color: transparent; }
+.para-quien { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
+.para-quien .cabeza { margin-bottom: 20px; }
+.motivos-caja { background: var(--superficie); border-radius: var(--radio-grande); padding: clamp(24px, 3vw, 32px); }
+.motivos-titulo { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--verde-medio); margin-bottom: 16px; }
+.motivos { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.motivos li { font-size: 15px; font-weight: 600; color: var(--bosque); background: var(--menta); padding: 10px 16px; border-radius: 99px; }
+.motivos li:nth-child(4n + 2) { background: var(--lima); }
+.motivos li:nth-child(4n + 3) { background: var(--salvia); }
 .motivos li.primera { background: transparent; border: 1.5px dashed var(--verde-medio); }
-.aviso-crisis { background: var(--amarillo-suave); border-radius: var(--radio-medio); padding: 22px 24px; display: grid; gap: 10px; }
-.aviso-crisis h3 { font-size: 20px; }
-.aviso-crisis p { font-size: 15px; color: var(--tinta); }
-.aviso-crisis a { font-weight: 700; color: var(--bosque); text-decoration-color: var(--bosque); text-underline-offset: 3px; }
-.para-quien .texto p + p { margin-top: 14px; }
 @media (max-width: 860px) { .para-quien { grid-template-columns: 1fr; } }
 
 /* ---------- Por qué MotivarCare ---------- */
@@ -267,9 +265,8 @@ img { max-width: 100%; display: block; }
 .razon p { color: var(--tinta-suave); font-size: 15.5px; }
 .razon--a { grid-column: span 3; background: var(--salvia); border-color: transparent; }
 .razon--b { grid-column: span 3; }
-.razon--c { grid-column: span 2; border: 1.5px dashed var(--verde-medio); background: transparent; }
-.razon--d { grid-column: span 2; background: var(--lima); border-color: transparent; }
-.razon--e { grid-column: span 2; background: var(--bosque); border-color: transparent; }
+.razon--d { grid-column: span 3; background: var(--lima); border-color: transparent; }
+.razon--e { grid-column: span 3; background: var(--bosque); border-color: transparent; }
 .razon--e h3 { color: var(--crema); }
 .razon--e p { color: rgba(234, 241, 236, 0.8); }
 .paises { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 12px; list-style: none; padding-left: 0; }
@@ -283,7 +280,7 @@ img { max-width: 100%; display: block; }
 .chat .escribiendo i:nth-child(2) { animation-delay: 0.15s; }
 .chat .escribiendo i:nth-child(3) { animation-delay: 0.3s; }
 .trazo { position: absolute; right: -4px; top: -6px; width: 110px; height: 82px; pointer-events: none; }
-.razon--c h3, .razon--e h3 { padding-right: 64px; }
+.razon--e h3 { padding-right: 64px; }
 .razon > :not(.trazo):not(.mapa-puntos) { position: relative; }
 .mapa-puntos { width: 100%; max-width: 360px; height: auto; margin: 6px 0 0; align-self: center; }
 .mapa-puntos .linea { fill: none; stroke: var(--bosque); stroke-opacity: 0.35; stroke-width: 1.4; stroke-linecap: round; stroke-dasharray: 3 5; }
@@ -295,12 +292,12 @@ img { max-width: 100%; display: block; }
 @media (max-width: 980px) {
   .razones { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .razon--a, .razon--b { grid-column: span 2; }
-  .razon--c, .razon--d { grid-column: span 1; }
-  .razon--e { grid-column: span 2; }
+  .razon--d { grid-column: span 1; }
+  .razon--e { grid-column: span 1; }
 }
 @media (max-width: 600px) {
   .razones { grid-template-columns: 1fr; }
-  .razon--a, .razon--b, .razon--c, .razon--d, .razon--e { grid-column: auto; }
+  .razon--a, .razon--b, .razon--d, .razon--e { grid-column: auto; }
 }
 
 /* ---------- Verificación de profesionales ---------- */
@@ -410,7 +407,7 @@ img { max-width: 100%; display: block; }
 .resena { margin: 0; background: var(--superficie); border: 1px solid var(--linea); border-radius: var(--radio-medio); padding: 24px; display: grid; gap: 14px; align-content: space-between; }
 .resena blockquote { margin: 0; font-family: var(--serif); font-size: 19px; line-height: 1.4; color: var(--bosque); font-variation-settings: 'SOFT' 60; }
 .resena footer { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--tinta-suave); }
-.resena footer .inicial { width: 36px; height: 36px; border-radius: 50%; background: var(--menta); color: var(--bosque); display: inline-flex; align-items: center; justify-content: center; font-weight: 800; }
+.resena footer .foto-perfil { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; flex: none; border: 2px solid var(--salvia); }
 .resena footer b { color: var(--bosque); display: block; }
 .estrellas { color: #b8860b; letter-spacing: 2px; font-size: 13px; }
 .nota-resenas { margin-top: 20px; font-size: 13.5px; color: var(--tinta-tenue); }
@@ -425,8 +422,6 @@ img { max-width: 100%; display: block; }
 .pregunta summary::after { content: ''; flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--menta) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231E4033' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M12 6v12M6 12h12'/%3E%3C/svg%3E") center / 14px no-repeat; transition: transform 0.2s; }
 .pregunta[open] summary::after { transform: rotate(45deg); background-color: var(--amarillo-suave); }
 .pregunta p { padding: 0 22px 20px; color: var(--tinta-suave); font-size: 15.5px; }
-.pregunta--crisis { background: var(--amarillo-suave); border-color: transparent; }
-.pregunta--crisis summary::after { background-color: var(--superficie); }
 @media (max-width: 860px) { .faq { grid-template-columns: 1fr; } .faq .cabeza { position: static; } }
 
 /* ---------- Profesionales ---------- */
@@ -439,11 +434,20 @@ img { max-width: 100%; display: block; }
 @media (max-width: 860px) { .profesionales { grid-template-columns: 1fr; } }
 
 /* ---------- Cierre ---------- */
-.cierre { text-align: center; display: grid; justify-items: center; gap: 22px; position: relative; }
-.cierre .etiqueta { justify-self: center; }
-.cierre h2 { font-size: clamp(36px, 5vw, 60px); max-width: 16ch; }
-.cierre .botones { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
-.sesiones-cierre { width: 180px; height: 70px; }
+.seccion--bosque { overflow: hidden; }
+.cierre { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
+.cierre-texto { display: grid; gap: 22px; justify-items: start; }
+.cierre h2 { font-size: clamp(40px, 5.4vw, 68px); line-height: 1.04; max-width: 12ch; }
+.cierre .botones { display: flex; flex-wrap: wrap; gap: 12px; }
+.cierre-visual { position: relative; width: 100%; max-width: 460px; justify-self: center; aspect-ratio: 460 / 520; }
+.cierre-visual > * { position: absolute; }
+.corazon-cierre { left: -12%; top: -6%; width: 118%; height: auto; transform: rotate(6deg); }
+.foto-cierre { left: 18%; top: 8%; width: 64%; aspect-ratio: 760 / 940; border-radius: var(--radio-grande); box-shadow: 0 30px 60px -24px rgba(0, 0, 0, 0.45); }
+.sesiones-cierre { right: 0; bottom: 6%; width: 40%; height: auto; background: var(--crema); border-radius: 99px; padding: 6px 10px; box-shadow: 0 18px 40px -20px rgba(0, 0, 0, 0.5); }
+.punto-cierre { border-radius: 50%; background: var(--amarillo); }
+.punto-cierre.p1 { left: 8%; top: 4%; width: 22px; height: 22px; }
+.punto-cierre.p2 { left: 2%; top: 13%; width: 10px; height: 10px; opacity: 0.7; }
+@media (max-width: 860px) { .cierre { grid-template-columns: 1fr; } .cierre-visual { max-width: 380px; } }
 
 /* ---------- Pie ---------- */
 .pie { padding: 48px 0 96px; border-top: 1px solid var(--linea); font-size: 14px; color: var(--tinta-suave); }
