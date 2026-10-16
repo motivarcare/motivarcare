@@ -144,6 +144,7 @@ En los títulos grandes, una palabra clave puede ir en itálica, en `bosque-2`, 
 - Las fotos se recortan al doble del tamaño en que se muestran, para que la trama tenga la misma escala en todas.
 - Composición de referencia: la videollamada. Una ventana grande con la persona profesional, una ventana chica con el paciente y una barra de controles, sobre la mancha de corazón salvia.
 - Escena de cierre: el paciente en su casa, cerrando la laptop al terminar la sesión, con la libreta abierta y una taza al lado. Transmite calma y continuidad después del encuentro.
+- Escena en casa: una paciente en el sillón, con una taza y la sesión abierta en la laptop. Es la foto de los mockups de la landing y muestra la terapia integrada a la vida cotidiana.
 - Las fotos actuales son generadas con Figma AI.
 
 ## Patrón visual
