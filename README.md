@@ -21,8 +21,8 @@ Cada frente de trabajo tiene su carpeta. El `README.md` de cada una explica qué
 | [`05-diseno`](05-diseno) | Flujos, pantallas y prototipos |
 | [`06-desarrollo`](06-desarrollo) | Especificaciones técnicas e implementación |
 | [`07-auditoria`](07-auditoria) | Auditoría UX de la plataforma en producción |
-| [`08-pruebas`](08-pruebas) | Pruebas de usabilidad y QA |
-| [`09-marketing`](09-marketing) | Estrategia, contenidos y campañas |
+| [`08-marketing`](08-marketing) | Estrategia, contenidos y campañas |
+| [`09-landing-page`](09-landing-page) | Contenidos de la landing page pública |
 | [`web`](web) | Portal interno que muestra el trabajo de cada frente |
 
 El archivo [`contexto.md`](contexto.md) reúne las decisiones generales y la forma de trabajo.

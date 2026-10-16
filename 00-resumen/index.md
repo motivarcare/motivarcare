@@ -8,7 +8,7 @@ actualizado: 2026-10-14
 
 [MotivarCare](https://www.motivarcare.com/) es una plataforma de salud mental digital que conecta pacientes de Latinoamérica con profesionales de la psicología para hacer sesiones online, sin esperas.
 
-El trabajo empezó en septiembre de 2026 con una auditoría de experiencia de usuario del portal en producción. En octubre se amplió a todos los frentes: investigación, comercial, design system, diseño, desarrollo, pruebas y marketing.
+El trabajo empezó en septiembre de 2026 con una auditoría de experiencia de usuario del portal en producción. En octubre se amplió a todos los frentes: investigación, comercial, design system, diseño, desarrollo, marketing y la landing page pública.
 
 ## Cómo usar este portal
 

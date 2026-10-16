@@ -8,7 +8,7 @@
 
 ## 1. Propósito
 
-Este proyecto es el espacio principal para todo el trabajo sobre la plataforma **MotivarCare**: investigación, comercial, design system, diseño, desarrollo, auditoría, pruebas y marketing.
+Este proyecto es el espacio principal para todo el trabajo sobre la plataforma **MotivarCare**: investigación, comercial, design system, diseño, desarrollo, auditoría, marketing y la landing page pública.
 
 El primer frente que se abordó fue la **auditoría integral de UX** del portal en producción (ver sección 6). A partir de octubre de 2026 el trabajo se amplía a todos los frentes, y cada uno tiene su propia carpeta de trabajo.
 
@@ -44,8 +44,8 @@ El primer frente que se abordó fue la **auditoría integral de UX** del portal 
 | `05-diseno/` | Diseño de producto (flujos, pantallas, prototipos) |
 | `06-desarrollo/` | Desarrollo |
 | `07-auditoria/` | Auditoría UX (destino final de todo lo producido en `motivarcare-audit/`) |
-| `08-pruebas/` | Pruebas (usabilidad, QA) |
-| `09-marketing/` | Marketing |
+| `08-marketing/` | Marketing |
+| `09-landing-page/` | Contenidos de la landing page pública (www.motivarcare.com) |
 | `web/` | **Portal HTML interno** para presentar los trabajos de cada frente |
 
 Cada carpeta tiene un `README.md` que explica para qué es.
