@@ -29,7 +29,7 @@ El archivo [`contexto.md`](contexto.md) reúne las decisiones generales y la for
 
 ## Portal interno
 
-El portal arma sus páginas a partir de los archivos `.md` del repositorio. Para verlo en tu computadora:
+El portal arma sus páginas a partir de los archivos `.md` del repositorio y se publica en **https://motivarcare.github.io** con cada push a `main`. Para verlo en tu computadora:
 
 ```bash
 cd web
