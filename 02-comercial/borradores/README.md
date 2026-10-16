@@ -2,8 +2,6 @@
 
 Espacio provisorio de exploración del frente comercial. **Nada de lo que hay acá es definitivo.** Cuando un documento se aprueba, pasa a la raíz de `02-comercial/` (o a la subcarpeta que corresponda) y queda fuera de borradores.
 
-Origen: contenido migrado desde `motivarcare-audit/documentos/` el 14/10/2026.
-
 ## Contenido
 
 | Elemento | Qué es |

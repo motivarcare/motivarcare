@@ -25,9 +25,9 @@ El proyecto consiste en realizar una **auditoría integral de Experiencia de Usu
 ---
 
 ## 3. Estructura de Trabajo Local
-El espacio de trabajo local (`motivarcare-audit/`) se organiza en los siguientes módulos:
+El espacio de trabajo de la auditoría (`07-auditoria/`) se organiza en los siguientes módulos:
 * `medios/`: Almacén de material multimedia, capturas de pantalla del portal auditado, marcas y referencias gráficas.
-* `motivarcare.github.io/`: Repositorio Git vinculado a GitHub Pages, que aloja el código fuente del sitio web del informe final.
+* Repositorio `motivarcare-audit`: Repositorio Git vinculado a GitHub Pages, que aloja el código fuente del sitio web del informe final.
 * `exploracion/`: Área donde se preservan los prototipos de estilo, mockups interactivos previos y comparativas de diseño.
 * `contexto.md`: Registro formal de requerimientos, decisiones finales de arquitectura y alcance del proyecto.
 
@@ -61,7 +61,7 @@ Se definió un estilo con identidad visual independiente de la marca auditada, s
 
 ---
 
-## 6. Arquitectura del Sitio Web del Informe (`motivarcare.github.io`)
+## 6. Arquitectura del Sitio Web del Informe (`motivarcare-audit`)
 * **Tecnología:** HTML5 semántico + Tailwind CSS + Vanilla JavaScript modular, gestionado con **Vite**.
 * **Estructura de Componentes:**
   * `index.html`: Dashboard interactivo con titular monumental, dictamen C-Level, scorecard de salud UX, selector de las 3 áreas y catálogo de hallazgos.

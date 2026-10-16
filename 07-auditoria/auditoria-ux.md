@@ -12,7 +12,7 @@ Antes de ejecutar la auditoría UX sobre MotivarCare, se define por escrito el p
 
 * Cada evaluación quede documentada de forma **coherente y comparable** entre sí.
 * Quede registro del **razonamiento y las decisiones** tomadas caso a caso, no solo del resultado final.
-* El informe web (`motivarcare.github.io`) se nutra, más adelante, de una bitácora ordenada y trazable, en lugar de partir de hallazgos sueltos.
+* El informe web (`motivarcare-audit`) se nutra, más adelante, de una bitácora ordenada y trazable, en lugar de partir de hallazgos sueltos.
 
 **Nota de contexto importante:** las pantallas del portal a explorar (landing, app del paciente y portal del profesional) fueron construidas **íntegramente con IA**. Este dato se tiene en cuenta como contexto del objeto auditado, no como criterio de evaluación en sí mismo.
 
@@ -72,7 +72,7 @@ Marco de trabajo: **10 Heurísticas de Usabilidad de Nielsen**, adaptadas al dom
 2. **Claude** ejecuta ese caso: navega el entorno de pruebas correspondiente, releva evidencia y aplica la heurística que corresponda.
 3. Claude genera la documentación del caso dentro de la bitácora (ver sección 7), incluyendo capturas de pantalla cuando haya hallazgos.
 4. Se repite caso por caso. **No se actualiza el sitio del informe automáticamente.**
-5. El sitio del informe (`motivarcare.github.io`) solo se actualiza cuando el Evaluador UX **lo pide explícitamente**, tomando como fuente lo acumulado en la bitácora hasta ese momento.
+5. El sitio del informe (`motivarcare-audit`) solo se actualiza cuando el Evaluador UX **lo pide explícitamente**, tomando como fuente lo acumulado en la bitácora hasta ese momento.
 
 ### Herramientas de navegación
 
@@ -91,7 +91,7 @@ La elección de cuál usar en cada caso se define puntualmente al proponer el ca
 
 ## 7. Estructura de carpetas — Bitácora de auditoría
 
-Se crea la carpeta **`bitacora-auditoria-ux/`** en la raíz del workspace local (`motivarcare-audit/`), con la siguiente organización:
+Se crea la carpeta **`bitacora-auditoria-ux/`** en la raíz del workspace local (`07-auditoria/`), con la siguiente organización:
 
 ```
 bitacora-auditoria-ux/
@@ -170,7 +170,7 @@ Los campos 5 (Severidad), 7 (Heurística) y 8 (Clasificación) a nivel del caso 
 ## 9. Reglas sobre el sitio del informe y GitHub
 
 * Claude **no ejecuta comandos de git/GitHub** bajo ninguna circunstancia en este proyecto — eso lo hace el Evaluador UX manualmente.
-* Cuando el Evaluador UX pida actualizar el informe, Claude modifica los **archivos fuente** del proyecto `motivarcare.github.io` (dentro de `src/`, `index.html`, etc.) para que puedan probarse localmente con `npm run dev`.
+* Cuando el Evaluador UX pida actualizar el informe, Claude modifica los **archivos fuente** del proyecto `motivarcare-audit` (dentro de `src/`, `index.html`, etc.) para que puedan probarse localmente con `npm run dev`.
 * Recién después de esa prueba local, el Evaluador UX se encarga de subir los cambios al repositorio de GitHub.
 
 ---

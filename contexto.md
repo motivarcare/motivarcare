@@ -25,7 +25,7 @@ El primer frente que se abordó fue la **auditoría integral de UX** del portal 
 
 ## 2. Forma de trabajo con el repositorio (vigente desde el 14/10/2026)
 
-* **Repositorio:** [`motivarcare/motivarcare.github.io`](https://github.com/motivarcare/motivarcare.github.io), rama `main`. Hasta el 15/10/2026 se llamó `motivarcare/motivarcare`.
+* **Repositorio:** [`motivarcare/motivarcare.github.io`](https://github.com/motivarcare/motivarcare.github.io), rama `main`.
 * **Publicación:** cada push a `main` compila el portal (`web/`) y lo publica en GitHub Pages, en https://motivarcare.github.io/ (workflow `.github/workflows/deploy.yml`).
 * **Claude trabaja directamente sobre el repositorio en GitHub**: crea y edita archivos, hace los commits y los sube con push.
 * **Gastón hace `git pull`** de vez en cuando en su copia local (`C:\Users\gasto\Trabajo\ux-ui\motivarcare`) para bajar los cambios y probarlos.
@@ -44,20 +44,15 @@ El primer frente que se abordó fue la **auditoría integral de UX** del portal 
 | `04-design-system/` | Design system (tokens, componentes, guías) |
 | `05-diseno/` | Diseño de producto (flujos, pantallas, prototipos) |
 | `06-desarrollo/` | Desarrollo |
-| `07-auditoria/` | Auditoría UX (destino final de todo lo producido en `motivarcare-audit/`) |
+| `07-auditoria/` | Auditoría UX: bitácora de casos, documentos y material de trabajo |
 | `08-marketing/` | Marketing |
 | `09-landing-page/` | Contenidos de la landing page pública (www.motivarcare.com) |
 | `web/` | **Portal HTML interno** para presentar los trabajos de cada frente |
 
 Cada carpeta tiene un `README.md` que explica para qué es.
 
-### Carpeta heredada: `motivarcare-audit/` (solo local, fuera de este repositorio)
-Es el espacio de trabajo de la auditoría UX, el primer frente. **Con el tiempo todo su contenido se va a mudar a `07-auditoria/`.** Mientras tanto, sigue siendo la fuente de verdad de la auditoría:
-* `medios/`: capturas del portal auditado, marcas y referencias gráficas.
-* `bitacora-auditoria-ux/`: una subcarpeta por caso (`caso-NN-slug/`), cada una con su `caso-NN-slug.md` y su carpeta `capturas/`.
-* `motivarcare.github.io/`: copia local del repositorio del informe de auditoría, que en GitHub pasó a llamarse `motivarcare/motivarcare-audit` (15/10/2026). Se publica en https://motivarcare.github.io/motivarcare-audit/.
-* `exploracion/`: prototipos de estilo, mockups y comparativas previas.
-* `presentacion-auditoria-ux/`, `documentos/`, `auditoria-ux.md`: material complementario.
+### Repositorio del informe: `motivarcare-audit`
+El informe web de la auditoría vive en su propio repositorio, [`motivarcare/motivarcare-audit`](https://github.com/motivarcare/motivarcare-audit), y se publica en https://motivarcare.github.io/motivarcare-audit/. La bitácora, los casos y el material de trabajo de la auditoría están en `07-auditoria/`.
 
 ---
 
@@ -113,7 +108,7 @@ Es un estilo con identidad visual propia, independiente de la marca auditada:
 5. **`src/js/audit-data.js` y el informe HTML NO se actualizan en cada iteración.** Se actualizan una sola vez por caso, cuando Gastón confirma el cierre y lo pide explícitamente.
 6. Al cerrar el caso, el contenido del `.md` pasa a `audit-data.js` (recalculando `findingsCount` del área), las capturas se sincronizan a `public/capturas/caso-NN/` y se verifica todo: stage → commit con `expectedMtimeMs` → stage-back → SHA256 para texto y diff de píxeles para imágenes.
 
-### 6.5 Arquitectura del sitio del informe (repositorio `motivarcare-audit`, antes `motivarcare.github.io`)
+### 6.5 Arquitectura del sitio del informe (repositorio `motivarcare-audit`)
 * **Tecnología:** HTML5 semántico + Tailwind CSS + Vanilla JS modular, con **Vite**.
 * **Componentes:** `index.html` (dashboard, dictamen C-Level, scorecard, selector de áreas, catálogo de hallazgos), `src/css/style.css`, `src/js/audit-data.js` (datos, heurísticas y matriz de hallazgos) y `src/js/app.js` (filtros y buscador).
 * **CI/CD:** GitHub Actions (`.github/workflows/deploy.yml`). Cada push a `main` compila con Vite y publica el informe en GitHub Pages como sitio de proyecto: https://motivarcare.github.io/motivarcare-audit/. La página del frente 07 en el portal enlaza a ese informe.
@@ -122,4 +117,3 @@ Es un estilo con identidad visual propia, independiente de la marca auditada:
 1. Seguir con la auditoría caso por caso en las 3 superficies, según el flujo de la sección 6.4.
 2. Guardar la evidencia en `medios/` y en el `capturas/` de cada caso.
 3. Al cerrar cada caso, y solo a pedido de Gastón, cargar sus hallazgos en `audit-data.js`.
-4. Más adelante, migrar `motivarcare-audit/` a `07-auditoria/`.
